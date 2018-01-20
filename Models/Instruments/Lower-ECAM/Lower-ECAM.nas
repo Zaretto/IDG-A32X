@@ -6,6 +6,7 @@
 ##############################################
 
 var lowerECAM_apu = nil;
+var lowerECAM_bleed = nil;
 var lowerECAM_door = nil;
 var lowerECAM_eng = nil;
 var lowerECAM_fctl = nil;
@@ -118,6 +119,16 @@ var canvas_lowerECAM_base = {
 				page = getprop("/ECAM/Lower/page");
 				if (page == "apu") {
 					lowerECAM_apu.page.show();
+					lowerECAM_bleed.page.hide();
+					lowerECAM_door.page.hide();
+					lowerECAM_eng.page.hide();
+					lowerECAM_fctl.page.hide();
+					lowerECAM_hyd.page.hide();
+					lowerECAM_wheel.page.hide();
+					lowerECAM_apu.update();
+				} else if (page == "bleed") {
+					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.show();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
@@ -126,6 +137,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.update();
 				} else if (page == "door") {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.show();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
@@ -134,6 +146,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.update();
 				} else if (page == "eng") {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.show();
 					lowerECAM_fctl.page.hide();
@@ -142,6 +155,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_eng.update();
 				} else if (page == "fctl") {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.show();
@@ -150,6 +164,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_fctl.update();
 				} else if (page == "hyd") {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
@@ -158,6 +173,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_hyd.update();
 				} else if (page == "wheel") {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
@@ -166,6 +182,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_wheel.update();
 				} else {
 					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
@@ -176,6 +193,7 @@ var canvas_lowerECAM_base = {
 		} else {
 			lowerECAM_test.page.hide();
 			lowerECAM_apu.page.hide();
+			lowerECAM_bleed.page.hide();
 			lowerECAM_door.page.hide();
 			lowerECAM_eng.page.hide();
 			lowerECAM_fctl.page.hide();
@@ -307,6 +325,22 @@ var canvas_lowerECAM_apu = {
 		me["APUN-needle"].setRotation((getprop("/ECAM/Lower/APU-N") + 90) * D2R);
 		me["APUEGT-needle"].setRotation((getprop("/ECAM/Lower/APU-EGT") + 90) * D2R);
 
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_bleed = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_hyd, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+		
+		return m;
+	},
+	getKeys: func() {
+		return ["TAT","SAT","GW"];
+	},
+	update: func() {
+		
 		me.updateBottomStatus();
 	},
 };
@@ -1479,6 +1513,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	});
 	lowerECAM_display.addPlacement({"node": "lecam.screen"});
 	var groupApu = lowerECAM_display.createGroup();
+	var groupBleed = lowerECAM_display.createGroup();
 	var groupDoor = lowerECAM_display.createGroup();
 	var groupEng = lowerECAM_display.createGroup();
 	var groupFctl = lowerECAM_display.createGroup();
@@ -1487,6 +1522,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	var group_test = lowerECAM_display.createGroup();
 
 	lowerECAM_apu = canvas_lowerECAM_apu.new(groupApu, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/apu.svg");
+	lowerECAM_bleed = canvas_lowerECAM_bleed.new(groupBleed, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/bleed.svg");
 	lowerECAM_door = canvas_lowerECAM_door.new(groupDoor, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/door.svg");
 	lowerECAM_eng = canvas_lowerECAM_eng.new(groupEng, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/eng-eis2.svg");
 	lowerECAM_fctl = canvas_lowerECAM_fctl.new(groupFctl, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fctl.svg");
