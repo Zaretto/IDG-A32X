@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -42,12 +42,12 @@
      id="namedview371"
      showgrid="true"
      inkscape:zoom="0.66468037"
-     inkscape:cx="706.29612"
-     inkscape:cy="785.8364"
-     inkscape:window-x="1920"
+     inkscape:cx="932.80473"
+     inkscape:cy="786.44441"
+     inkscape:window-x="3840"
      inkscape:window-y="33"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="HYD-Quantity-Group-Yellow"
      inkscape:measure-start="0,0"
      inkscape:measure-end="0,0">
     <inkscape:grid
@@ -1119,7 +1119,7 @@
        style="fill:none;stroke:#bb6100;stroke-width:2.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:connector-curvature="0"
-       id="Quantity-Indicator-Yellow-7"
+       id="Quantity-Indicator-Green"
        d="M 796.49998,856.74995 V 716.49998 h 15.75 l -17.25,-13.5"
        style="fill:none;stroke:#0dc04b;stroke-width:2.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        inkscape:label="#path5563" />
