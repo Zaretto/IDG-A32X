@@ -8,6 +8,7 @@
 var lowerECAM_apu = nil;
 var lowerECAM_eng = nil;
 var lowerECAM_fctl = nil;
+var lowerECAM_hyd = nil;
 var lowerECAM_wheel = nil;
 var lowerECAM_door = nil;
 var lowerECAM_test = nil;
@@ -108,6 +109,7 @@ var canvas_lowerECAM_base = {
 				lowerECAM_apu.page.hide();
 				lowerECAM_eng.page.hide();
 				lowerECAM_fctl.page.hide();
+				lowerECAM_hyd.page.hide();
 				lowerECAM_wheel.page.hide();
 				lowerECAM_door.page.hide();
 				lowerECAM_test.page.show();
@@ -115,47 +117,33 @@ var canvas_lowerECAM_base = {
 			} else {
 				lowerECAM_test.page.hide();
 				page = getprop("/ECAM/Lower/page");
+
+				# hide all pagen and then just show the relevant
+				lowerECAM_apu.page.hide();
+				lowerECAM_eng.page.hide();
+				lowerECAM_fctl.page.hide();
+				lowerECAM_hyd.page.hide();
+				lowerECAM_wheel.page.hide();
+				lowerECAM_door.page.hide();
+
 				if (page == "apu") {
 					lowerECAM_apu.page.show();
-					lowerECAM_eng.page.hide();
-					lowerECAM_fctl.page.hide();
-					lowerECAM_wheel.page.hide();
-					lowerECAM_door.page.hide();
 					lowerECAM_apu.update();
 				} else if (page == "eng") {
-					lowerECAM_apu.page.hide();
 					lowerECAM_eng.page.show();
-					lowerECAM_fctl.page.hide();
-					lowerECAM_wheel.page.hide();
-					lowerECAM_door.page.hide();
 					lowerECAM_eng.update();
 				} else if (page == "fctl") {
-					lowerECAM_apu.page.hide();
-					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.show();
-					lowerECAM_wheel.page.hide();
-					lowerECAM_door.page.hide();
 					lowerECAM_fctl.update();
+				} else if (page == "hyd") {
+					lowerECAM_hyd.page.show();
+					lowerECAM_hyd.update();
 				} else if (page == "wheel") {
-					lowerECAM_apu.page.hide();
-					lowerECAM_eng.page.hide();
-					lowerECAM_fctl.page.hide();
 					lowerECAM_wheel.page.show();
-					lowerECAM_door.page.hide();
 					lowerECAM_wheel.update();
 				} else if (page == "door") {
-					lowerECAM_apu.page.hide();
-					lowerECAM_eng.page.hide();
-					lowerECAM_fctl.page.hide();
-					lowerECAM_wheel.page.hide();
 					lowerECAM_door.page.show();
 					lowerECAM_door.update();
-				} else {
-					lowerECAM_apu.page.hide();
-					lowerECAM_eng.page.hide();
-					lowerECAM_fctl.page.hide();
-					lowerECAM_wheel.page.hide();
-					lowerECAM_door.page.hide();
 				}
 			}
 		} else {
@@ -163,6 +151,7 @@ var canvas_lowerECAM_base = {
 			lowerECAM_apu.page.hide();
 			lowerECAM_eng.page.hide();
 			lowerECAM_fctl.page.hide();
+			lowerECAM_hyd.page.hide();
 			lowerECAM_wheel.page.hide();
 			lowerECAM_door.page.hide();
 		}
@@ -872,6 +861,106 @@ var canvas_lowerECAM_fctl = {
 	},
 };
 
+
+var canvas_lowerECAM_hyd = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_hyd, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW","Green-Indicator","Blue-Indicator","Yellow-Indicator","Press-Green","Press-Blue","Press-Yellow","Green-Line",
+			"Blue-Line","Yellow-Line","PTU-Supply-Line","PTU-supply-yellow","PTU-supply-green","PTU-connection","PTU-Auto-or-off","RAT-label",
+			"RAT-stowed","RAT-not-stowed","ELEC-Yellow-off","ELEC-Yellow-on","ELEC-Yellow-label","ELEC-OVTH-Yellow","ELEC-Blue-label",
+			"ELEC-OVHT-Blue","ELEC-OVHT-Yellow","Pump-Green-label","Pump-Yellow-label","Pump-Green","Pump-LOPR-Green","Pump-Green-off","Pump-Green-on",
+			"Pump-Yellow","Pump-LOPR-Yellow","Pump-Yellow-off","Pump-Yellow-on","Pump-Blue","Pump-LOPR-Blue","Pump-Blue-off","Pump-Blue-on",
+			"Fire-Valve-Green","Fire-Valve-Yellow","LO-AIR-PRESS-Green","LO-AIR-PRESS-Yellow","LO-AIR-PRESS-Blue","OVHT-Green","OVHT-Blue",
+			"OVHT-Yellow","Quantity-Indicator-Green","Quantity-Indicator-Blue","Quantity-Indicator-Yellow","Green-label","Blue-label","Yellow-label"];
+	},
+	update: func() {
+		blue_psi = getprop("/systems/hydraulic/blue-psi");
+		green_psi = getprop("/systems/hydraulic/green-psi");
+		yellow_psi = getprop("/systems/hydraulic/yellow-psi");
+
+		me["Press-Green"].setText(sprintf("%s", green_psi));
+		me["Press-Blue"].setText(sprintf("%s", blue_psi));
+		me["Press-Yellow"].setText(sprintf("%s", yellow_psi));
+
+		if (blue_psi >= 1450) {
+			me["Blue-Line"].setColor(0.0509,0.7529,0.2941);
+			me["Blue-Indicator"].setColor(0.0509,0.7529,0.2941);
+			me["Press-Blue"].setColor(0.0509,0.7529,0.2941);
+			me["Blue-label"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["Blue-Line"].setColor(0.7333,0.3803,0);
+			me["Blue-Indicator"].setColor(0.7333,0.3803,0);
+			me["Press-Blue"].setColor(0.7333,0.3803,0);
+			me["Blue-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (yellow_psi >= 1450) {
+			me["Yellow-Line"].setColor(0.0509,0.7529,0.2941);
+			me["Yellow-Indicator"].setColor(0.0509,0.7529,0.2941);
+			me["Press-Yellow"].setColor(0.0509,0.7529,0.2941);
+			me["Yellow-label"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["Yellow-Line"].setColor(0.7333,0.3803,0);
+			me["Yellow-Indicator"].setColor(0.7333,0.3803,0);
+			me["Press-Yellow"].setColor(0.7333,0.3803,0);
+			me["Yellow-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (green_psi >= 1450) {
+			me["Green-Line"].setColor(0.0509,0.7529,0.2941);
+			me["Green-Indicator"].setColor(0.0509,0.7529,0.2941);
+			me["Press-Green"].setColor(0.0509,0.7529,0.2941);
+			me["Green-label"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["Green-Line"].setColor(0.7333,0.3803,0);
+			me["Green-Indicator"].setColor(0.7333,0.3803,0);
+			me["Press-Green"].setColor(0.7333,0.3803,0);
+			me["Green-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/engines/engine[0]/n2-actual") >= 59) {
+			me["Pump-Green-label"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["Pump-Green-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/engines/engine[1]/n2-actual") >= 59) {
+			me["Pump-Yellow-label"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["Pump-Yellow-label"].setColor(0.7333,0.3803,0);
+		}
+
+		# hiding elements which have no props in the tree yet and doesn't suite in in normal ops
+		# TODO add these when they are in the prop tree
+		me["LO-AIR-PRESS-Green"].hide();
+		me["LO-AIR-PRESS-Blue"].hide();
+		me["LO-AIR-PRESS-Yellow"].hide();
+		me["ELEC-OVHT-Yellow"].hide();
+		me["ELEC-OVHT-Blue"].hide();
+		me["RAT-not-stowed"].hide();
+		me["ELEC-Yellow-on"].hide();
+		me["PTU-Supply-Line"].hide();
+		me["PTU-supply-yellow"].hide();
+		me["PTU-supply-green"].hide();
+		me["Pump-LOPR-Yellow"].hide();
+		me["Pump-LOPR-Blue"].hide();
+		me["Pump-LOPR-Green"].hide();
+		me["OVHT-Yellow"].hide();
+		me["OVHT-Green"].hide();
+		me["OVHT-Blue"].hide();
+		me["Pump-Blue-off"].hide();
+		me["Pump-Green-off"].hide();
+		me["Pump-Yellow-off"].hide();
+		
+		me.updateBottomStatus();
+	},
+};
+
 var canvas_lowerECAM_wheel = {
 	new: func(canvas_group, file) {
 		var m = {parents: [canvas_lowerECAM_wheel, canvas_lowerECAM_base]};
@@ -1369,6 +1458,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	var groupApu = lowerECAM_display.createGroup();
 	var groupEng = lowerECAM_display.createGroup();
 	var groupFctl = lowerECAM_display.createGroup();
+	var groupHyd = lowerECAM_display.createGroup();
 	var groupWheel = lowerECAM_display.createGroup();
 	var groupDoor = lowerECAM_display.createGroup();
 	var group_test = lowerECAM_display.createGroup();
@@ -1376,6 +1466,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	lowerECAM_apu = canvas_lowerECAM_apu.new(groupApu, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/apu.svg");
 	lowerECAM_eng = canvas_lowerECAM_eng.new(groupEng, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/eng-eis2.svg");
 	lowerECAM_fctl = canvas_lowerECAM_fctl.new(groupFctl, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fctl.svg");
+	lowerECAM_hyd = canvas_lowerECAM_hyd.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/hyd.svg");
 	lowerECAM_wheel = canvas_lowerECAM_wheel.new(groupWheel, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/wheel.svg");
 	lowerECAM_door = canvas_lowerECAM_door.new(groupDoor, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/door.svg");
 	lowerECAM_test = canvas_lowerECAM_test.new(group_test, "Aircraft/IDG-A32X/Models/Instruments/Common/res/du-test.svg");
