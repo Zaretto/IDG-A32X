@@ -9,6 +9,11 @@ var lowerECAM_apu = nil;
 var lowerECAM_eng = nil;
 var lowerECAM_fctl = nil;
 var lowerECAM_hyd = nil;
+var lowerECAM_bleed = nil;
+var lowerECAM_press = nil;
+var lowerECAM_elec = nil;
+var lowerECAM_fuel = nil;
+var lowerECAM_cond = nil;
 var lowerECAM_wheel = nil;
 var lowerECAM_door = nil;
 var lowerECAM_test = nil;
@@ -110,6 +115,11 @@ var canvas_lowerECAM_base = {
 				lowerECAM_eng.page.hide();
 				lowerECAM_fctl.page.hide();
 				lowerECAM_hyd.page.hide();
+				lowerECAM_bleed.page.hide();
+				lowerECAM_press.page.hide();
+				lowerECAM_elec.page.hide();
+				lowerECAM_fuel.page.hide();
+				lowerECAM_cond.page.hide();
 				lowerECAM_wheel.page.hide();
 				lowerECAM_door.page.hide();
 				lowerECAM_test.page.show();
@@ -123,6 +133,11 @@ var canvas_lowerECAM_base = {
 				lowerECAM_eng.page.hide();
 				lowerECAM_fctl.page.hide();
 				lowerECAM_hyd.page.hide();
+				lowerECAM_bleed.page.hide();
+				lowerECAM_press.page.hide();
+				lowerECAM_elec.page.hide();
+				lowerECAM_fuel.page.hide();
+				lowerECAM_cond.page.hide();
 				lowerECAM_wheel.page.hide();
 				lowerECAM_door.page.hide();
 
@@ -138,6 +153,21 @@ var canvas_lowerECAM_base = {
 				} else if (page == "hyd") {
 					lowerECAM_hyd.page.show();
 					lowerECAM_hyd.update();
+				} else if (page == "bleed") {
+					lowerECAM_bleed.page.show();
+					lowerECAM_bleed.update();
+				} else if (page == "press") {
+					lowerECAM_press.page.show();
+					lowerECAM_press.update();
+				} else if (page == "elec") {
+					lowerECAM_elec.page.show();
+					lowerECAM_elec.update();
+				} else if (page == "fuel") {
+					lowerECAM_fuel.page.show();
+					lowerECAM_fuel.update();
+				} else if (page == "cond") {
+					lowerECAM_cond.page.show();
+					lowerECAM_cond.update();
 				} else if (page == "wheel") {
 					lowerECAM_wheel.page.show();
 					lowerECAM_wheel.update();
@@ -152,6 +182,11 @@ var canvas_lowerECAM_base = {
 			lowerECAM_eng.page.hide();
 			lowerECAM_fctl.page.hide();
 			lowerECAM_hyd.page.hide();
+			lowerECAM_bleed.page.hide();
+			lowerECAM_press.page.hide();
+			lowerECAM_elec.page.hide();
+			lowerECAM_fuel.page.hide();
+			lowerECAM_cond.page.hide();
 			lowerECAM_wheel.page.hide();
 			lowerECAM_door.page.hide();
 		}
@@ -961,6 +996,86 @@ var canvas_lowerECAM_hyd = {
 	},
 };
 
+var canvas_lowerECAM_bleed = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_bleed, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW"];
+	},
+	update: func() {
+		
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_press = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_press, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW"];
+	},
+	update: func() {
+		
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_elec = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_elec, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW"];
+	},
+	update: func() {
+		
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_fuel = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_fuel, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW"];
+	},
+	update: func() {
+		
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_cond = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_cond, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW"];
+	},
+	update: func() {
+		
+		me.updateBottomStatus();
+	},
+};
+
 var canvas_lowerECAM_wheel = {
 	new: func(canvas_group, file) {
 		var m = {parents: [canvas_lowerECAM_wheel, canvas_lowerECAM_base]};
@@ -1459,6 +1574,11 @@ setlistener("sim/signals/fdm-initialized", func {
 	var groupEng = lowerECAM_display.createGroup();
 	var groupFctl = lowerECAM_display.createGroup();
 	var groupHyd = lowerECAM_display.createGroup();
+	var groupBleed = lowerECAM_display.createGroup();
+	var groupPress = lowerECAM_display.createGroup();
+	var groupElec = lowerECAM_display.createGroup();
+	var groupFuel = lowerECAM_display.createGroup();
+	var groupCond = lowerECAM_display.createGroup();
 	var groupWheel = lowerECAM_display.createGroup();
 	var groupDoor = lowerECAM_display.createGroup();
 	var group_test = lowerECAM_display.createGroup();
@@ -1467,6 +1587,11 @@ setlistener("sim/signals/fdm-initialized", func {
 	lowerECAM_eng = canvas_lowerECAM_eng.new(groupEng, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/eng-eis2.svg");
 	lowerECAM_fctl = canvas_lowerECAM_fctl.new(groupFctl, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fctl.svg");
 	lowerECAM_hyd = canvas_lowerECAM_hyd.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/hyd.svg");
+	lowerECAM_bleed = canvas_lowerECAM_bleed.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/bleed.svg");
+	lowerECAM_press = canvas_lowerECAM_press.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/press.svg");
+	lowerECAM_elec = canvas_lowerECAM_elec.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/elec.svg");
+	lowerECAM_fuel = canvas_lowerECAM_fuel.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fuel.svg");
+	lowerECAM_cond = canvas_lowerECAM_cond.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/cond.svg");
 	lowerECAM_wheel = canvas_lowerECAM_wheel.new(groupWheel, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/wheel.svg");
 	lowerECAM_door = canvas_lowerECAM_door.new(groupDoor, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/door.svg");
 	lowerECAM_test = canvas_lowerECAM_test.new(group_test, "Aircraft/IDG-A32X/Models/Instruments/Common/res/du-test.svg");
