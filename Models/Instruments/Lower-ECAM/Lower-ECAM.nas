@@ -531,7 +531,9 @@ var canvas_lowerECAM_elec = {
 			"IDG1-DISC","IDG1-RISE-Value","IDG1-RISE-label","GalleyShed","ELEC-IDG-2-Temp","ELEC-IDG-2-label",
 			"IDG2-RISE-label","IDG2-RISE-Value","IDG2-LOPR","IDG2-DISC","ESSTR-group","ESSTR-Volt","ESSTR-Ampere",
 			"BAT1-content","BAT2-content","BAT1-OFF","BAT2-OFF","GEN1-content","GEN2-content","GEN-1-num-label",
-			"GEN-2-num-label","GEN1-off","GEN2-off","GEN1-num-label","GEN2-num-label"];
+			"GEN-2-num-label","GEN1-off","GEN2-off","GEN1-num-label","GEN2-num-label","EXTPWR-label",
+			"ELEC-ACESS-SHED-label","ELEC-DCBAT-label","ELEC-DCESS-label","ELEC-DC2-label","ELEC-DC1-label",
+			"ELEC-AC1-label","ELEC-AC2-label","ELEC-ACESS-label"];
 	},
 	update: func() {
 
@@ -554,7 +556,12 @@ var canvas_lowerECAM_elec = {
 				me["Bat1Volt"].setColor(0.7333,0.3803,0);
 			}
 
-			# TODO add over amp
+			if (getprop("/systems/electrical/battery1-amps") > 5) {
+				me["Bat1Ampere"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Bat1Ampere"].setColor(0.0509,0.7529,0.2941);
+			}
+
 			# TODO add correct charge/dischare behaviour
 			# this is only temporary
 			me["ELEC-Line-BAT1-DCBAT"].show();
@@ -562,8 +569,7 @@ var canvas_lowerECAM_elec = {
 			me["BAT1-charge"].hide();
 		}
 
-		# TODO add check for amp overload
-		if (getprop("/systems/electrical/batt1-fault") == 1 or getprop("/systems/electrical/battery1-volts") < 25) {
+		if (getprop("/systems/electrical/batt1-fault") == 1 or getprop("/systems/electrical/battery1-volts") < 25 or getprop("/systems/electrical/battery1-amps") > 5) {
 			me["BAT1-label"].setColor(0.7333,0.3803,0);
 		} else {
 			me["BAT1-label"].setColor(0.8078,0.8039,0.8078);
@@ -588,7 +594,11 @@ var canvas_lowerECAM_elec = {
 				me["Bat2Volt"].setColor(0.7333,0.3803,0);
 			}
 
-			# TODO add over amp
+			if (getprop("/systems/electrical/battery2-amps") > 5) {
+				me["Bat2Ampere"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Bat2Ampere"].setColor(0.0509,0.7529,0.2941);
+			}
 			# TODO add correct charge/dischare behaviour
 			# this is only temporary
 			me["ELEC-Line-BAT2-DCBAT"].show();
@@ -596,23 +606,53 @@ var canvas_lowerECAM_elec = {
 			me["BAT2-charge"].hide();
 		}
 
-		# TODO add check for amp overload
-		if (getprop("/systems/electrical/batt2-fault") == 1 or getprop("/systems/electrical/battery2-volts") < 25) {
+		if (getprop("/systems/electrical/batt2-fault") == 1 or getprop("/systems/electrical/battery2-volts") < 25 or getprop("/systems/electrical/battery2-amps") > 5) {
 			me["BAT2-label"].setColor(0.7333,0.3803,0);
 		} else {
 			me["BAT2-label"].setColor(0.8078,0.8039,0.8078);
 		}
 
-		# TODO add DC BAT bus amber if V <= 25
-		# TODO add amber busses when off
-
 		# TR1
-		# TODO add amber title.
-		# TODO add correct V and A
+		me["TR1Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc1"))));
+		me["TR1Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc1-amps"))));
+		if (getprop("/systems/electrical/bus/dc1") < 25 or getprop("/systems/electrical/bus/dc1") > 31 or getprop("/systems/electrical/bus/dc1-amps") <= 5) {
+			me["TR1-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		if (getprop("/systems/electrical/bus/dc1") < 25 or getprop("/systems/electrical/bus/dc1") > 31) {
+			me["TR1Volt"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1Volt"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		if (getprop("/systems/electrical/bus/dc1-amps") <= 5) {
+			me["TR1Ampere"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1Ampere"].setColor(0.0509,0.7529,0.2941);
+		}
 
 		# TR2
-		# TODO add amber title.
-		# TODO add correct V and A
+		me["TR2Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc2"))));
+		me["TR2Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc2-amps"))));
+		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc2") > 31 or getprop("/systems/electrical/bus/dc2-amps") <= 5) {
+			me["TR2-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc2") > 31) {
+			me["TR2Volt"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2Volt"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		if (getprop("/systems/electrical/bus/dc2-amps") <= 5) {
+			me["TR2Ampere"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2Ampere"].setColor(0.0509,0.7529,0.2941);
+		}
 
 		# ESS TR
 		# TODO add amber title.
@@ -773,10 +813,153 @@ var canvas_lowerECAM_elec = {
 		}
 
 		# EXT PWR
-		# TODO add it
+		# TODO this should go via ext pwr avail and not via ext pwr active
+		if (getprop("/systems/electrical/get-ext") == 0) {
+			me["EXTPWR-group"].hide();
+		} else {
+			me["EXTPWR-group"].show();
+			me["ExtVolt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/ext-volts"))));
+			me["ExtHz"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/ext-hz"))));
 
-		# TODO add IDG gallyshed and rise part
+			if (getprop("/systems/electrical/extra/ext-hz") > 410 or getprop("/systems/electrical/extra/ext-hz") < 390 or getprop("/systems/electrical/extra/ext-volts") > 120 or getprop("/systems/electrical/extra/ext-volts") < 110) {
+				me["EXTPWR-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["EXTPWR-label"].setColor(0.0509,0.7529,0.2941);
+			}
 
+			if (getprop("/systems/electrical/extra/ext-hz") > 410 or getprop("/systems/electrical/extra/ext-hz") < 390) {
+				me["ExtHz"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ExtHz"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			if (getprop("/systems/electrical/extra/ext-volts") > 120 or getprop("/systems/electrical/extra/ext-volts") < 110) {
+				me["ExtVolt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ExtVolt"].setColor(0.0509,0.7529,0.2941);
+			}
+		}
+
+		# TODO add IDG warnings and rise part
+
+		if (getprop("/systems/electrical/extra/galleyshed") == 1) {
+			me["GalleyShed"].show();
+		} else {
+			me["GalleyShed"].hide();
+		}
+
+		# Bus indicators
+		if (getprop("/systems/electrical/bus/dcbat") > 25) {
+			me["ELEC-DCBAT-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DCBAT-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc1") > 25) {
+			me["ELEC-DC1-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DC1-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc2") > 25) {
+			me["ELEC-DC2-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DC2-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc-ess") > 25) {
+			me["ELEC-DCESS-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DCESS-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/ac-ess") > 110) {
+			me["ELEC-ACESS-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-ACESS-label"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO fix that... "Nasal runtime error: non-objects have no members
+		#  at /storage/IDG-A32X/Models/Instruments/Lower-ECAM/Lower-ECAM.nas" in the me[] line
+		# I have no clue, why it's that way.
+#		if (getprop("/systems/electrical/bus/ac-ess-shed") > 110) {
+#			me["ELEC-ACESS-SHED-label"].setColor(0.0509,0.7529,0.2941);
+#		} else {
+#			me["ELEC-ACESS-SHED-label"].setColor(0.7333,0.3803,0);
+#		}
+
+		if (getprop("/systems/electrical/bus/ac1") > 110) {
+			me["ELEC-AC1-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-AC1-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/ac2") > 110) {
+			me["ELEC-AC2-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-AC2-label"].setColor(0.7333,0.3803,0);
+		}
+
+
+		# Managment of the connecting lines between the components
+		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac2-src") == "APU") {
+			me["APU-out"].show();
+		} else {
+			me["APU-out"].hide();
+		}
+
+		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "EXT") {
+			me["EXT-out"].show();
+		} else {
+			me["EXT-out"].hide();
+		}
+
+		# TODO add GEN1-out lines
+
+		# TODO add GEN2-out lines
+
+		if (getprop("/systems/electrical/ac1-src") != "XX") {
+			me["AC1-in"].show();
+		} else {
+			me["AC1-in"].hide()
+		}
+
+		if (getprop("/systems/electrical/ac2-src") != "XX") {
+			me["AC2-in"].show();
+		} else {
+			me["AC2-in"].hide()
+		}
+
+		# TODO add case pwr comes from gen2
+		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac1-src") == "EXT") {
+			me["ELEC-Line-APU-AC1"].show();
+		} else {
+			me["ELEC-Line-APU-AC1"].hide();
+		}
+
+		# TODO add case where gens are xfeeding the othersides bus
+		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "APU") {
+			me["ELEC-Line-APU-EXT"].show();
+		} else {
+			me["ELEC-Line-APU-EXT"].hide();
+		}
+
+		# TODO add case pwr comes from gen1
+		if (getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac2-src") == "EXT") {
+			me["ELEC-Line-EXT-AC2"].show();
+		} else {
+			me["ELEC-Line-EXT-AC2"].hide();
+		}
+
+		if (getprop("/controls/electrical/switches/ac-ess-feed") == 1) {
+			me["ELEC-Line-AC1-ACESS"].hide();
+			me["ELEC-Line-AC2-ACESS"].show();
+		} else {
+			me["ELEC-Line-AC1-ACESS"].show();
+			me["ELEC-Line-AC2-ACESS"].hide();
+		}
+
+		# TODO add all above the AC
 
 		# hide not yet implemented items
 		me["ACESS-SHED"].hide();
@@ -793,6 +976,10 @@ var canvas_lowerECAM_elec = {
 		me["ELEC-Line-Emergen-ESSTR"].hide();
 		me["EMERGEN-out"].hide();
 		me["Shed-label"].hide();
+		me["IDG2-RISE-label"].hide();
+		me["IDG2-RISE-Value"].hide();
+		me["IDG1-RISE-label"].hide();
+		me["IDG1-RISE-Value"].hide();
 
 		me.updateBottomStatus();
 	},
