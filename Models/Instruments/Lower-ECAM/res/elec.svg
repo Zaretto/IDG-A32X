@@ -42,9 +42,9 @@
      id="namedview371"
      showgrid="true"
      inkscape:zoom="0.59142988"
-     inkscape:cx="584.59125"
-     inkscape:cy="683.4747"
-     inkscape:window-x="1920"
+     inkscape:cx="401.23165"
+     inkscape:cy="676.14507"
+     inkscape:window-x="0"
      inkscape:window-y="33"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2">
@@ -1247,58 +1247,62 @@
      transform="scale(0.96119789,1.0403685)"><tspan
        sodipodi:role="line"
        id="tspan5102">DC BAT</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="337.66577"
-     y="151.02299"
-     id="text3728-6-4"><tspan
-       sodipodi:role="line"
-       id="tspan3730-3-8"
-       x="337.66577"
+  <g
+     id="BAT1-content"
+     inkscape:label="#g4810">
+    <text
+       id="text3728-6-4"
        y="151.02299"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#179ab7;fill-opacity:1;stroke-width:1px">V</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.29371262px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:2.35780931px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="365.50116"
-     y="181.29192"
-     id="text3732-2-1"
-     transform="scale(0.94128067,1.0623824)"><tspan
-       sodipodi:role="line"
-       id="tspan5146"
-       x="365.50116"
+       x="337.66577"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#179ab7;fill-opacity:1;stroke-width:1px"
+         y="151.02299"
+         x="337.66577"
+         id="tspan3730-3-8"
+         sodipodi:role="line">V</tspan></text>
+    <text
+       transform="scale(0.94128067,1.0623824)"
+       id="text3732-2-1"
        y="181.29192"
-       style="stroke-width:2.35780931px">A</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.30758286px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:3.69229865px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="315.96017"
-     y="151.63"
-     id="Bat1Volt"
-     inkscape:label="#text5149"
-     transform="scale(1.0030127,0.99699634)"><tspan
-       sodipodi:role="line"
-       id="tspan5142"
-       x="315.96017"
+       x="365.50116"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.29371262px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:2.35780931px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="stroke-width:2.35780931px"
+         y="181.29192"
+         x="365.50116"
+         id="tspan5146"
+         sodipodi:role="line">A</tspan></text>
+    <text
+       transform="scale(1.0030127,0.99699634)"
+       inkscape:label="#text5149"
+       id="Bat1Volt"
        y="151.63"
-       style="fill:#0dc04b;fill-opacity:1;stroke-width:3.69229865px">28</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.71266556px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.05938864px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="295.88062"
-     y="210.22098"
-     id="Bat1Ampere"
-     inkscape:label="#text5149"
-     transform="scale(1.0833301,0.9230797)"><tspan
-       sodipodi:role="line"
-       id="tspan5144"
-       x="295.88062"
+       x="315.96017"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.30758286px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:3.69229865px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="fill:#0dc04b;fill-opacity:1;stroke-width:3.69229865px"
+         y="151.63"
+         x="315.96017"
+         id="tspan5142"
+         sodipodi:role="line">28</tspan></text>
+    <text
+       transform="scale(1.0833301,0.9230797)"
+       inkscape:label="#text5149"
+       id="Bat1Ampere"
        y="210.22098"
-       style="fill:#0dc04b;fill-opacity:1;stroke-width:4.05938864px">0</tspan></text>
+       x="295.88062"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.71266556px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.05938864px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="fill:#0dc04b;fill-opacity:1;stroke-width:4.05938864px"
+         y="210.22098"
+         x="295.88062"
+         id="tspan5144"
+         sodipodi:role="line">0</tspan></text>
+  </g>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="241.55293"
      y="103.52283"
      id="BAT1-label"
@@ -1370,58 +1374,62 @@
        id="rect3956-8-3-3-6-3"
        style="fill:#4d4d4d;fill-opacity:1" />
   </g>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="755.79126"
-     y="147.27599"
-     id="text3728-6-4-8"><tspan
-       sodipodi:role="line"
-       id="tspan3730-3-8-5"
-       x="755.79126"
+  <g
+     id="BAT2-content"
+     inkscape:label="#g4820">
+    <text
+       id="text3728-6-4-8"
        y="147.27599"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#179ab7;fill-opacity:1;stroke-width:1px">V</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.29371452px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:2.35780931px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="809.71039"
-     y="177.76492"
-     id="text3732-2-1-6"
-     transform="scale(0.94128065,1.0623824)"><tspan
-       sodipodi:role="line"
-       id="tspan5146-1"
-       x="809.71039"
+       x="755.79126"
+       style="font-style:normal;font-weight:normal;font-size:12px;line-height:0%;font-family:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#179ab7;fill-opacity:1;stroke-width:1px"
+         y="147.27599"
+         x="755.79126"
+         id="tspan3730-3-8-5"
+         sodipodi:role="line">V</tspan></text>
+    <text
+       transform="scale(0.94128065,1.0623824)"
+       id="text3732-2-1-6"
        y="177.76492"
-       style="stroke-width:2.35780931px">A</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.30758286px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:3.69229889px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="732.82983"
-     y="147.87172"
-     id="Bat2Volt"
-     inkscape:label="#text5149"
-     transform="scale(1.0030127,0.99699635)"><tspan
-       sodipodi:role="line"
-       id="tspan5142-5"
-       x="732.82983"
+       x="809.71039"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.29371452px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:2.35780931px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="stroke-width:2.35780931px"
+         y="177.76492"
+         x="809.71039"
+         id="tspan5146-1"
+         sodipodi:role="line">A</tspan></text>
+    <text
+       transform="scale(1.0030127,0.99699635)"
+       inkscape:label="#text5149"
+       id="Bat2Volt"
        y="147.87172"
-       style="fill:#0dc04b;fill-opacity:1;stroke-width:3.69229889px">28</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.71266937px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.05938864px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="681.84375"
-     y="206.16174"
-     id="Bat2Ampere"
-     inkscape:label="#text5149"
-     transform="scale(1.0833301,0.92307968)"><tspan
-       sodipodi:role="line"
-       id="tspan5144-8"
-       x="681.84375"
+       x="732.82983"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.30758286px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:3.69229889px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="fill:#0dc04b;fill-opacity:1;stroke-width:3.69229889px"
+         y="147.87172"
+         x="732.82983"
+         id="tspan5142-5"
+         sodipodi:role="line">28</tspan></text>
+    <text
+       transform="scale(1.0833301,0.92307968)"
+       inkscape:label="#text5149"
+       id="Bat2Ampere"
        y="206.16174"
-       style="fill:#0dc04b;fill-opacity:1;stroke-width:4.05938864px">0</tspan></text>
+       x="681.84375"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.71266937px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.05938864px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="fill:#0dc04b;fill-opacity:1;stroke-width:4.05938864px"
+         y="206.16174"
+         x="681.84375"
+         id="tspan5144-8"
+         sodipodi:role="line">0</tspan></text>
+  </g>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="675.72742"
      y="99.154305"
      id="BAT2-label"
@@ -1446,9 +1454,10 @@
      sodipodi:cy="109.92132"
      sodipodi:cx="788.80811"
      sodipodi:sides="3"
-     id="path4243-3"
+     id="ELEC-Line-ESSTR-DCESS"
      style="fill:none;fill-opacity:1;stroke:#cecdce;stroke-width:4.69756889;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     sodipodi:type="star" />
+     sodipodi:type="star"
+     inkscape:label="#path4243-3" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:45.78336716px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.81528044px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1649,7 +1658,7 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="68.784912"
      y="331.00467"
-     id="BAT1-label-4"
+     id="TR1-label"
      inkscape:label="#text5149"
      transform="scale(0.96119789,1.0403685)"><tspan
        sodipodi:role="line"
@@ -1742,7 +1751,7 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29099893px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="892.37744"
      y="334.16974"
-     id="BAT1-label-4-1"
+     id="TR2-label"
      inkscape:label="#text5149"
      transform="scale(0.96119789,1.0403685)"><tspan
        sodipodi:role="line"
@@ -2121,8 +2130,9 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.75360489px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.56280041px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="922.74646"
      y="672.08038"
-     id="text3912-3"
-     transform="scale(1.0255812,0.97505685)"><tspan
+     id="GEN-2-num-label"
+     transform="scale(1.0255812,0.97505685)"
+     inkscape:label="#text3912-3"><tspan
        sodipodi:role="line"
        id="tspan5361"
        x="922.74646"
@@ -2133,8 +2143,9 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.75400034px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.56280017px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="162.04295"
      y="674.14954"
-     id="text3912-3-8"
-     transform="scale(1.0255812,0.97505687)"><tspan
+     id="GEN-1-num-label"
+     transform="scale(1.0255812,0.97505687)"
+     inkscape:label="#text3912-3-8"><tspan
        sodipodi:role="line"
        id="tspan5381">1</tspan></text>
   <text
@@ -2189,4 +2200,30 @@
        x="765.44617"
        y="935.5838"
        style="fill:#0dc04b;fill-opacity:1;stroke-width:2.96151376px">15</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:47.07433319px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:1.17685831"
+     x="260.35413"
+     y="162.93285"
+     id="BAT1-OFF"
+     transform="scale(0.99753748,1.0024686)"
+     inkscape:label="#text4824"><tspan
+       sodipodi:role="line"
+       id="tspan4822"
+       x="260.35413"
+       y="162.93285"
+       style="fill:#cecdce;fill-opacity:1;stroke-width:1.17685831">OFF</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:47.07433319px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:1.17685831"
+     x="680.4375"
+     y="158.08972"
+     id="BAT2-OFF"
+     transform="scale(0.99753748,1.0024686)"
+     inkscape:label="#text4824"><tspan
+       sodipodi:role="line"
+       id="tspan4822-7"
+       x="680.4375"
+       y="158.08972"
+       style="fill:#cecdce;fill-opacity:1;stroke-width:1.17685831">OFF</tspan></text>
 </svg>
