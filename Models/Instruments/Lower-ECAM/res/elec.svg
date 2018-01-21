@@ -41,9 +41,9 @@
      inkscape:window-height="1047"
      id="namedview371"
      showgrid="true"
-     inkscape:zoom="1.1828598"
-     inkscape:cx="636.44772"
-     inkscape:cy="394.14926"
+     inkscape:zoom="0.83640819"
+     inkscape:cx="876.18478"
+     inkscape:cy="382.82648"
      inkscape:window-x="0"
      inkscape:window-y="33"
      inkscape:window-maximized="0"
@@ -719,29 +719,24 @@
   </g>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.46406174px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.70532846px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.46399925px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.70532846px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="42.883312"
      y="810.87653"
      id="ELEC-IDG-1-label"
      inkscape:label="#text3720"
      transform="scale(0.95179275,1.0506489)"><tspan
        sodipodi:role="line"
-       id="tspan4803"
-       x="42.883312"
-       y="810.87653"
-       style="fill:#cecdce;fill-opacity:1;stroke-width:3.70532846px">IDG 1</tspan></text>
+       id="tspan4808">IDG</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.4640007px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.7053287px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.46399925px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.7053287px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="899.77686"
      y="806.85168"
      id="ELEC-IDG-2-label"
      inkscape:label="#text3720"
      transform="scale(0.95179275,1.0506489)"><tspan
        sodipodi:role="line"
-       id="tspan4831"
-       x="899.77686"
-       y="806.85168">IDG 2</tspan></text>
+       id="tspan4830">IDG</tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:44.4972229px;line-height:1.25;font-family:'Liberation Sans';letter-spacing:0px;word-spacing:0px;fill:#179ab7;fill-opacity:1;stroke:none;stroke-width:1.11243057"
@@ -872,7 +867,7 @@
     <text
        transform="scale(0.93325858,1.0715144)"
        inkscape:label="#text3720"
-       id="APUGentext-2"
+       id="EXTPWR-label"
        y="656.46381"
        x="671.78223"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40.81155777px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.40096307px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1651,7 +1646,7 @@
        y="465.996">150</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29100037px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cecdce;fill-opacity:0.98431373;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="68.784912"
      y="331.00467"
      id="TR1-label"
@@ -1744,7 +1739,7 @@
        y="469.5632">150</tspan></text>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29099893px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#0dc04b;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48.29099893px;line-height:0%;font-family:'Liberation Sans';-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:4.02423px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
      x="892.37744"
      y="334.16974"
      id="TR2-label"
@@ -2222,4 +2217,24 @@
        x="680.4375"
        y="158.08972"
        style="fill:#cecdce;fill-opacity:1;stroke-width:1.17685831">OFF</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.46399938px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.70532823px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+     x="138.74535"
+     y="811.12653"
+     id="ELEC-IDG-1-num-label"
+     inkscape:label="#text3720"
+     transform="scale(0.95179275,1.0506489)"><tspan
+       sodipodi:role="line"
+       id="tspan4828">1</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.46399938px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#cecdce;fill-opacity:1;stroke:none;stroke-width:3.7053287px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+     x="999.85486"
+     y="806.74823"
+     id="ELEC-IDG-2-num-label"
+     inkscape:label="#text3720"
+     transform="scale(0.95179275,1.0506489)"><tspan
+       sodipodi:role="line"
+       id="tspan4850">2</tspan></text>
 </svg>
