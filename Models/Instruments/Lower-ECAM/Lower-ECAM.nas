@@ -8,6 +8,7 @@
 var lowerECAM_apu = nil;
 var lowerECAM_bleed = nil;
 var lowerECAM_door = nil;
+var lowerECAM_fuel = nil;
 var lowerECAM_eng = nil;
 var lowerECAM_fctl = nil;
 var lowerECAM_hyd = nil;
@@ -110,6 +111,7 @@ var canvas_lowerECAM_base = {
 				lowerECAM_apu.page.hide();
 				lowerECAM_eng.page.hide();
 				lowerECAM_fctl.page.hide();
+				lowerECAM_fuel.page.hide();
 				lowerECAM_wheel.page.hide();
 				lowerECAM_door.page.hide();
 				lowerECAM_test.page.show();
@@ -123,6 +125,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_apu.update();
@@ -132,6 +135,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_apu.update();
@@ -141,6 +145,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.show();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_door.update();
@@ -150,6 +155,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.show();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_eng.update();
@@ -159,15 +165,27 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.show();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_fctl.update();
+				} else if (page == "fuel") {
+					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
+					lowerECAM_door.page.hide();
+					lowerECAM_eng.page.hide();
+					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.show();
+					lowerECAM_hyd.page.hide();
+					lowerECAM_wheel.page.hide();
+					lowerECAM_fuel.update();
 				} else if (page == "hyd") {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.show();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_hyd.update();
@@ -177,6 +195,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.show();
 					lowerECAM_wheel.update();
@@ -186,6 +205,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_door.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
+					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 				}
@@ -197,6 +217,7 @@ var canvas_lowerECAM_base = {
 			lowerECAM_door.page.hide();
 			lowerECAM_eng.page.hide();
 			lowerECAM_fctl.page.hide();
+			lowerECAM_fuel.page.hide();
 			lowerECAM_hyd.page.hide();
 			lowerECAM_wheel.page.hide();
 		}
@@ -922,6 +943,167 @@ var canvas_lowerECAM_fctl = {
 	},
 };
 
+var canvas_lowerECAM_fuel = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_fuel, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return["TAT","SAT","GW","FUEL-Pump-Left-1","FUEL-Pump-Left-2","FUEL-Pump-Center-1","FUEL-Pump-Center-2",
+			"FUEL-Pump-Right-1","FUEL-Pump-Right-2","FUEL-Left-blocked","FUEL-Right-blocked","FUEL-Center-blocked",
+			"FUEL-Left-Tranfser","FUEL-Right-Tranfse","FUEL-Left-Outer-Inacc","FUEL-Left-Inner-Inacc","FUEL-Center-Inacc",
+			"FUEL-Right-Inner-Inacc","FUEL-Right-Outer-Inacc","FUEL-Left-Outer-quantity","FUEL-Left-Inner-quantity",
+			"FUEL-Center-quantity","FUEL-Right-Inner-quantity","FUEL-Right-Outer-quantity","FUEL-On-Board",
+			"FUEL-Flow-per-min","FUEL-APU-arrow","FUEL-APU-label","FUEL-used-1","FUEL-used-both","FUEL-used-2",
+			"FUEL-ENG-Master-1","FUEL-ENG-Master-2","FUEL-XFEED","FUEL-XFEED-pipes","FUEL-Left-Outer-temp",
+			"FUEL-Left-Inner-temp","FUEL-Right-Inner-temp","FUEL-Right-Outer-temp","FUEL-Pump-Left-1-Closed",
+			"FUEL-Pump-Left-1-Open","FUEL-Pump-Left-2-Closed","FUEL-Pump-Left-2-Open","FUEL-Pump-Center-1-Open",
+			"FUEL-Pump-Center-1-Closed","FUEL-Pump-Center-2-Closed","FUEL-Pump-Center-2-Open","FUEL-Pump-Right-1-Closed",
+			"FUEL-Pump-Right-1-Open","FUEL-Pump-Right-2-Closed","FUEL-Pump-Right-2-Open","FUEL-ENG-1-label",
+			"FUEL-ENG-2-label","FUEL-ENG-1-pipe","FUEL-ENG-2-pipe","FUEL-Right-Tranfser"];
+	},
+	update: func() {
+
+		# TODO add FOB half-boxed amber if some fuel is blocked
+		me["FUEL-On-Board"].setText(sprintf("%s", math.round(getprop("/consumables/fuel/total-fuel-lbs"), 10)));
+
+		me["FUEL-Flow-per-min"].setText(sprintf("%s", math.round((getprop("/engines/engine[0]/fuel-flow_actual") + getprop("/engines/engine[1]/fuel-flow_actual")) / 60, 1)));
+
+		# this is now bound to the ENG master switch
+		# TODO use the valve prop and add amber if diffrence between eng master and valve
+		# TODO add transition state
+		# TODO fix amber/green at the same time when closed
+		if (getprop("/controls/engines/engine[0]/cutoff-switch") == 0) {
+			me["FUEL-ENG-Master-1"].setRotation(0);
+			me["FUEL-ENG-Master-1"].setColor(0.0509,0.7529,0.2941);
+			me["FUEL-ENG-1-pipe"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-ENG-Master-1"].setRotation(90 * D2R);
+			me["FUEL-ENG-Master-1"].setColor(0.7333,0.3803,0);
+			me["FUEL-ENG-1-pipe"].setColor(0.7333,0.3803,0);
+		}
+
+		# this is now bound to the ENG master switch
+		# TODO use the valve prop and add amber if diffrence between eng master and valve
+		# TODO add transition state
+		# TODO fix amber/green at the same time when closed
+		if (getprop("/controls/engines/engine[1]/cutoff-switch") == 0) {
+			me["FUEL-ENG-Master-2"].setRotation(0);
+			me["FUEL-ENG-Master-2"].setColor(0.0509,0.7529,0.2941);
+			me["FUEL-ENG-2-pipe"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-ENG-Master-2"].setRotation(90 * D2R);
+			me["FUEL-ENG-Master-2"].setColor(0.7333,0.3803,0);
+			me["FUEL-ENG-2-pipe"].setColor(0.7333,0.3803,0);
+		}
+
+		# this is now bound to the XFEED switch
+		# TODO use the valve prop
+		# TODO add amber when disagree between switch and btn
+		# TODO add transition state
+		if (getprop("/controls/fuel/x-feed") == 1) {
+			me["FUEL-XFEED"].setRotation(0);
+			me["FUEL-XFEED-pipes"].show();
+		} else {
+			me["FUEL-XFEED"].setRotation(90 * D2R);
+			me["FUEL-XFEED-pipes"].hide();
+		}
+
+		# TODO add LO indication
+		# TODO fix amber/green at the same time when closed
+		if (getprop("controls/fuel/tank0pump1") == 1) {
+			me["FUEL-Pump-Left-1-Open"].show();
+			me["FUEL-Pump-Left-1-Closed"].hide();
+			me["FUEL-Pump-Left-1"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Left-1-Open"].hide();
+			me["FUEL-Pump-Left-1-Closed"].show();
+			me["FUEL-Pump-Left-1"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO add LO indication
+		# TODO fix amber/green at the same time when closed
+		if (getprop("controls/fuel/tank0pump2") == 1) {
+			me["FUEL-Pump-Left-2-Open"].show();
+			me["FUEL-Pump-Left-2-Closed"].hide();
+			me["FUEL-Pump-Left-2"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Left-2-Open"].hide();
+			me["FUEL-Pump-Left-2-Closed"].show();
+			me["FUEL-Pump-Left-2"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO fix amber/green at the same time when closed
+		# TODO add functionality to match FCOM 1.28.20 "Amber: Transfer valve is open, whereas commanded closed in automatic or manual mode" 
+		if (getprop("controls/fuel/tank1pump1") == 1) {
+			me["FUEL-Pump-Center-1-Open"].show();
+			me["FUEL-Pump-Center-1-Closed"].hide();
+			me["FUEL-Pump-Center-1"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Center-1-Open"].hide();
+			me["FUEL-Pump-Center-1-Closed"].show();
+			me["FUEL-Pump-Center-1"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO add LO indication
+		# TODO fix amber/green at the same time when closed
+		if (getprop("controls/fuel/tank1pump2") == 1) {
+			me["FUEL-Pump-Center-2-Open"].show();
+			me["FUEL-Pump-Center-2-Closed"].hide();
+			me["FUEL-Pump-Center-2"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Center-2-Open"].hide();
+			me["FUEL-Pump-Center-2-Closed"].show();
+			me["FUEL-Pump-Center-2"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO add LO indication
+		# TODO fix amber/green at the same time when closed
+		if (getprop("controls/fuel/tank2pump1") == 1) {
+			me["FUEL-Pump-Right-1-Open"].show();
+			me["FUEL-Pump-Right-1-Closed"].hide();
+			me["FUEL-Pump-Right-1"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Right-1-Open"].hide();
+			me["FUEL-Pump-Right-1-Closed"].show();
+			me["FUEL-Pump-Right-1"].setColor(0.7333,0.3803,0);
+		}
+
+		# TODO add LO indication
+		# TODO fix amber/green at the same time when closed
+		if (getprop("controls/fuel/tank2pump2") == 1) {
+			me["FUEL-Pump-Right-2-Open"].show();
+			me["FUEL-Pump-Right-2-Closed"].hide();
+			me["FUEL-Pump-Right-2"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["FUEL-Pump-Right-2-Open"].hide();
+			me["FUEL-Pump-Right-2-Closed"].show();
+			me["FUEL-Pump-Right-2"].setColor(0.7333,0.3803,0);
+		}
+
+		# Hide not yet implemented features
+		# TODO add them
+		me["FUEL-Left-blocked"].hide();
+		me["FUEL-Right-blocked"].hide();
+		me["FUEL-Center-blocked"].hide();
+		me["FUEL-Left-Outer-Inacc"].hide();
+		me["FUEL-Left-Inner-Inacc"].hide();
+		me["FUEL-Right-Outer-Inacc"].hide();
+		me["FUEL-Right-Inner-Inacc"].hide();
+		me["FUEL-Center-Inacc"].hide();
+		me["FUEL-Left-Tranfser"].hide();
+		me["FUEL-Right-Tranfser"].hide();
+		me["FUEL-Left-Outer-temp"].hide();
+		me["FUEL-Left-Inner-temp"].hide();
+		me["FUEL-Right-Outer-temp"].hide();
+		me["FUEL-Right-Inner-temp"].hide();
+		
+		me.updateBottomStatus();
+	},
+};
+
 var canvas_lowerECAM_hyd = {
 	new: func(canvas_group, file) {
 		var m = {parents: [canvas_lowerECAM_hyd, canvas_lowerECAM_base]};
@@ -1517,6 +1699,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	var groupDoor = lowerECAM_display.createGroup();
 	var groupEng = lowerECAM_display.createGroup();
 	var groupFctl = lowerECAM_display.createGroup();
+	var groupFuel = lowerECAM_display.createGroup();
 	var groupHyd = lowerECAM_display.createGroup();
 	var groupWheel = lowerECAM_display.createGroup();
 	var group_test = lowerECAM_display.createGroup();
@@ -1526,6 +1709,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	lowerECAM_door = canvas_lowerECAM_door.new(groupDoor, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/door.svg");
 	lowerECAM_eng = canvas_lowerECAM_eng.new(groupEng, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/eng-eis2.svg");
 	lowerECAM_fctl = canvas_lowerECAM_fctl.new(groupFctl, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fctl.svg");
+	lowerECAM_fuel = canvas_lowerECAM_fuel.new(groupFuel, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fuel.svg");
 	lowerECAM_hyd = canvas_lowerECAM_hyd.new(groupHyd, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/hyd.svg");
 	lowerECAM_wheel = canvas_lowerECAM_wheel.new(groupWheel, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/wheel.svg");
 	lowerECAM_test = canvas_lowerECAM_test.new(group_test, "Aircraft/IDG-A32X/Models/Instruments/Common/res/du-test.svg");
