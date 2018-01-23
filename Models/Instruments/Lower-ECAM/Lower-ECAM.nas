@@ -32,6 +32,10 @@ var askidsw = 0;
 var brakemode = 0;
 var accum = 0;
 var elapsedtime = 0;
+var tr1_v = 0;
+var tr1_a = 0;
+var tr2_v = 0;
+var tr2_a = 0;
 setprop("/systems/electrical/extra/apu-load", 0);
 setprop("/systems/electrical/extra/apu-volts", 0);
 setprop("/systems/electrical/extra/apu-hz", 0);
@@ -613,42 +617,62 @@ var canvas_lowerECAM_elec = {
 		}
 
 		# TR1
-		me["TR1Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc1"))));
-		me["TR1Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc1-amps"))));
-		if (getprop("/systems/electrical/bus/dc1") < 25 or getprop("/systems/electrical/bus/dc1") > 31 or getprop("/systems/electrical/bus/dc1-amps") <= 5) {
+		# is only powered when ac1 has power
+		if (getprop("/systems/electrical/bus/ac1") >= 110) {
+			tr1_v = getprop("/systems/electrical/bus/dc1");
+			tr1_a = getprop("/systems/electrical/bus/dc1-amps");
+		} else {
+			tr1_v = 0;
+			tr1_a = 0;
+		}
+
+		me["TR1Volt"].setText(sprintf("%s", math.round(tr1_v)));
+		me["TR1Ampere"].setText(sprintf("%s", math.round(tr1_a)));
+
+		if (tr1_v < 25 or tr1_v > 31 or tr1_a <= 5) {
 			me["TR1-label"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR1-label"].setColor(0.8078,0.8039,0.8078);
 		}
 
-		if (getprop("/systems/electrical/bus/dc1") < 25 or getprop("/systems/electrical/bus/dc1") > 31) {
+		if (tr1_v < 25 or tr1_v > 31) {
 			me["TR1Volt"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR1Volt"].setColor(0.0509,0.7529,0.2941);
 		}
 
-		if (getprop("/systems/electrical/bus/dc1-amps") <= 5) {
+		if (tr1_a <= 5) {
 			me["TR1Ampere"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR1Ampere"].setColor(0.0509,0.7529,0.2941);
 		}
 
 		# TR2
-		me["TR2Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc2"))));
-		me["TR2Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc2-amps"))));
-		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc2") > 31 or getprop("/systems/electrical/bus/dc2-amps") <= 5) {
+		# is only powered when ac2 has power
+		if (getprop("/systems/electrical/bus/ac2") >= 110) {
+			tr2_v = getprop("/systems/electrical/bus/dc2");
+			tr2_a = getprop("/systems/electrical/bus/dc2-amps");
+		} else {
+			tr2_v = 0;
+			tr2_a = 0;
+		}
+
+		me["TR2Volt"].setText(sprintf("%s", math.round(tr2_v)));
+		me["TR2Ampere"].setText(sprintf("%s", math.round(tr2_a)));
+
+		if (tr2_v < 25 or tr2_v > 31 or tr2_a <= 5) {
 			me["TR2-label"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR2-label"].setColor(0.8078,0.8039,0.8078);
 		}
 
-		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc2") > 31) {
+		if (tr2_v < 25 or tr2_v > 31) {
 			me["TR2Volt"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR2Volt"].setColor(0.0509,0.7529,0.2941);
 		}
 
-		if (getprop("/systems/electrical/bus/dc2-amps") <= 5) {
+		if (tr2_a <= 5) {
 			me["TR2Ampere"].setColor(0.7333,0.3803,0);
 		} else {
 			me["TR2Ampere"].setColor(0.0509,0.7529,0.2941);
