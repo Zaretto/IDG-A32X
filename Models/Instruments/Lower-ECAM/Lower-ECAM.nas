@@ -962,15 +962,35 @@ var canvas_lowerECAM_fuel = {
 			"FUEL-Pump-Left-1-Open","FUEL-Pump-Left-2-Closed","FUEL-Pump-Left-2-Open","FUEL-Pump-Center-1-Open",
 			"FUEL-Pump-Center-1-Closed","FUEL-Pump-Center-2-Closed","FUEL-Pump-Center-2-Open","FUEL-Pump-Right-1-Closed",
 			"FUEL-Pump-Right-1-Open","FUEL-Pump-Right-2-Closed","FUEL-Pump-Right-2-Open","FUEL-ENG-1-label",
-			"FUEL-ENG-2-label","FUEL-ENG-1-pipe","FUEL-ENG-2-pipe","FUEL-Right-Tranfser"];
+			"FUEL-ENG-2-label","FUEL-ENG-1-pipe","FUEL-ENG-2-pipe","FUEL-Right-Tranfser","ENG1idFFlow","ENG2idFFlow"];
 	},
 	update: func() {
-
+		
+		# if (getprop("engines/engine[0]/n1-actual") < getprop("/controls/engines/idle-limit")) {
+		if (getprop("engines/engine[0]/n1-actual") < 19.7) {
+			me["ENG1idFFlow"].setColor(0.7333,0.3803,0);
+		} else {
+			me["ENG1idFFlow"].setColor(0.8078,0.8039,0.8078);
+		}
+		
+		# if (getprop("engines/engine[1]/n1-actual") < getprop("/controls/engines/idle-limit")) {
+		if (getprop("engines/engine[1]/n1-actual") < 19.7) {
+			me["ENG2idFFlow"].setColor(0.7333,0.3803,0);
+		} else {
+			me["ENG2idFFlow"].setColor(0.8078,0.8039,0.8078);
+		}
+		
 		# TODO add FOB half-boxed amber if some fuel is blocked
 		me["FUEL-On-Board"].setText(sprintf("%s", math.round(getprop("/consumables/fuel/total-fuel-lbs"), 10)));
-
-		me["FUEL-Flow-per-min"].setText(sprintf("%s", math.round((getprop("/engines/engine[0]/fuel-flow_actual") + getprop("/engines/engine[1]/fuel-flow_actual")) / 60, 1)));
-
+		
+		if (getprop("/systems/fadec/powered1") == 1 and getprop("/systems/fadec/powered2") == 1) {
+			me["FUEL-Flow-per-min"].setColor(0.0509,0.7529,0.2941);
+			me["FUEL-Flow-per-min"].setText(sprintf("%s", math.round((getprop("/engines/engine[0]/fuel-flow_actual") + getprop("/engines/engine[1]/fuel-flow_actual")) / 60, 1)));
+		} else {
+			me["FUEL-Flow-per-min"].setColor(0.7333,0.3803,0);
+			me["FUEL-Flow-per-min"].setText("XX");
+		}
+		
 		# this is now bound to the ENG master switch
 		# TODO use the valve prop and add amber if diffrence between eng master and valve
 		# TODO add transition state
@@ -1020,7 +1040,7 @@ var canvas_lowerECAM_fuel = {
 		} else {
 			me["FUEL-Pump-Left-1-Open"].hide();
 			me["FUEL-Pump-Left-1-Closed"].show();
-			me["FUEL-Pump-Left-1"].setColor(0.7333,0.3803,0);
+			me["FUEL-Pump-Left-1"].setColor(0.7333,0.3803,0);		
 		}
 
 		# TODO add LO indication
