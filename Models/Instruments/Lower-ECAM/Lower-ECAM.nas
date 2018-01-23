@@ -945,11 +945,13 @@ var canvas_lowerECAM_hyd = {
 		me["Press-Yellow"].setText(sprintf("%s", yellow_psi));
 
 		if (blue_psi >= 1500) {
+			me["Blue-Line"].setColor(0.0509,0.7529,0.2941);
 			me["Blue-Line"].setColorFill(0.0509,0.7529,0.2941);
 			me["Blue-Indicator"].setColor(0.0509,0.7529,0.2941);
 			me["Press-Blue"].setColor(0.0509,0.7529,0.2941);
 			me["Blue-label"].setColor(0.8078,0.8039,0.8078);
 		} else {
+			me["Blue-Line"].setColor(0.7333,0.3803,0);
 			me["Blue-Line"].setColorFill(0.7333,0.3803,0);
 			me["Blue-Indicator"].setColor(0.7333,0.3803,0);
 			me["Press-Blue"].setColor(0.7333,0.3803,0);
@@ -957,11 +959,13 @@ var canvas_lowerECAM_hyd = {
 		}
 
 		if (yellow_psi >= 1500) {
+			me["Yellow-Line"].setColor(0.0509,0.7529,0.2941);
 			me["Yellow-Line"].setColorFill(0.0509,0.7529,0.2941);
 			me["Yellow-Indicator"].setColor(0.0509,0.7529,0.2941);
 			me["Press-Yellow"].setColor(0.0509,0.7529,0.2941);
 			me["Yellow-label"].setColor(0.8078,0.8039,0.8078);
 		} else {
+			me["Yellow-Line"].setColor(0.7333,0.3803,0);
 			me["Yellow-Line"].setColorFill(0.7333,0.3803,0);
 			me["Yellow-Indicator"].setColor(0.7333,0.3803,0);
 			me["Press-Yellow"].setColor(0.7333,0.3803,0);
@@ -969,15 +973,25 @@ var canvas_lowerECAM_hyd = {
 		}
 
 		if (green_psi >= 1500) {
+			me["Green-Line"].setColor(0.0509,0.7529,0.2941);
 			me["Green-Line"].setColorFill(0.0509,0.7529,0.2941);
 			me["Green-Indicator"].setColor(0.0509,0.7529,0.2941);
 			me["Press-Green"].setColor(0.0509,0.7529,0.2941);
 			me["Green-label"].setColor(0.8078,0.8039,0.8078);
 		} else {
+			me["Green-Line"].setColor(0.7333,0.3803,0);
 			me["Green-Line"].setColorFill(0.7333,0.3803,0);
 			me["Green-Indicator"].setColor(0.7333,0.3803,0);
 			me["Press-Green"].setColor(0.7333,0.3803,0);
 			me["Green-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/controls/hydraulic/ptu") == 1 and getprop("/systems/hydraulic/ptu-fault") == 0) {
+			me["PTU-connection"].setColor(0.0509,0.7529,0.2941);
+			me["PTU-Auto-or-off"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["PTU-connection"].setColor(0.7333,0.3803,0);
+			me["PTU-Auto-or-off"].setColor(0.7333,0.3803,0);
 		}
 
 		if (getprop("/engines/engine[0]/n2-actual") >= 59) {
@@ -992,6 +1006,70 @@ var canvas_lowerECAM_hyd = {
 			me["Pump-Yellow-label"].setColor(0.7333,0.3803,0);
 		}
 
+		if (getprop("/controls/hydraulic/eng1-pump") == 1) {
+			me["Pump-Green-off"].hide();
+			if (yellow_psi >= 1500) {
+				me["Pump-Green-on"].show();
+				me["Pump-LOPR-Green"].hide();
+				me["Pump-Green"].setColor(0.0509,0.7529,0.2941);
+				me["Pump-Green"].setColorFill(0.0509,0.7529,0.2941);
+			} else {
+				me["Pump-Green-on"].hide();
+				me["Pump-LOPR-Green"].show();
+				me["Pump-Green"].setColor(0.7333,0.3803,0);
+				me["Pump-Green"].setColorFill(0.7333,0.3803,0);
+			}
+		} else {
+			me["Pump-Green-off"].show();
+			me["Pump-Green-on"].hide();
+			me["Pump-LOPR-Green"].hide();
+			me["Pump-Green"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/controls/hydraulic/eng2-pump") == 1) {
+			me["Pump-Yellow-off"].hide();
+			if (yellow_psi >= 1500) {
+				me["Pump-Yellow-on"].show();
+				me["Pump-LOPR-Yellow"].hide();
+				me["Pump-Yellow"].setColor(0.0509,0.7529,0.2941);
+			} else {
+				me["Pump-Yellow-on"].hide();
+				me["Pump-LOPR-Yellow"].show();
+				me["Pump-Yellow"].setColor(0.7333,0.3803,0);
+			}
+		} else {
+			me["Pump-Yellow-off"].show();
+			me["Pump-Yellow-on"].hide();
+			me["Pump-LOPR-Yellow"].hide();
+			me["Pump-Yellow"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/controls/hydraulic/elec-pump-blue") == 1) {
+			me["Pump-Blue-off"].hide();
+			if (blue_psi >= 1500) {
+				me["Pump-Blue-on"].show();
+				me["Pump-LOPR-Blue"].hide();
+				me["Pump-Blue"].setColor(0.0509,0.7529,0.2941);
+			} else {
+				me["Pump-LOPR-Blue"].show();
+				me["Pump-Blue-on"].hide();
+				me["Pump-Blue"].setColor(0.7333,0.3803,0);
+			}
+		} else {
+			me["Pump-Blue-off"].show();
+			me["Pump-Blue-on"].hide();
+			me["Pump-LOPR-Blue"].hide();
+			me["Pump-Blue"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/controls/hydraulic/elec-pump-yellow") == 0) {
+			me["ELEC-Yellow-on"].hide();
+			me["ELEC-Yellow-off"].show();
+		} else {
+			me["ELEC-Yellow-on"].show();
+			me["ELEC-Yellow-off"].hide();
+		}
+
 		# hiding elements which have no props in the tree yet and doesn't suite in in normal ops
 		# TODO add these when they are in the prop tree
 		me["LO-AIR-PRESS-Green"].hide();
@@ -1000,19 +1078,12 @@ var canvas_lowerECAM_hyd = {
 		me["ELEC-OVHT-Yellow"].hide();
 		me["ELEC-OVHT-Blue"].hide();
 		me["RAT-not-stowed"].hide();
-		me["ELEC-Yellow-on"].hide();
 		me["PTU-Supply-Line"].hide();
 		me["PTU-supply-yellow"].hide();
 		me["PTU-supply-green"].hide();
-		me["Pump-LOPR-Yellow"].hide();
-		me["Pump-LOPR-Blue"].hide();
-		me["Pump-LOPR-Green"].hide();
 		me["OVHT-Yellow"].hide();
 		me["OVHT-Green"].hide();
 		me["OVHT-Blue"].hide();
-		me["Pump-Blue-off"].hide();
-		me["Pump-Green-off"].hide();
-		me["Pump-Yellow-off"].hide();
 		
 		me.updateBottomStatus();
 	},
