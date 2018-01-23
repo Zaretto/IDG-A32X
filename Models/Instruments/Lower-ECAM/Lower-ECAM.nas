@@ -377,7 +377,7 @@ var canvas_lowerECAM_door = {
 		return ["TAT","SAT","GW","Bulk","BulkLine","BulkLbl", "Exit1L", "Exit1R", "Cabin1Left", "Cabin1LeftLbl", "Cabin1LeftLine", "Cabin1LeftSlide", "Cabin1Right", "Cabin1RightLbl", "Cabin1RightLine", "Cabin1RightSlide", "Cabin2Left", "Cabin2LeftLbl", 
 		"Cabin2LeftLine", "Cabin2LeftSlide", "Cabin2Right", "Cabin2RightLbl", "Cabin2RightLine", "Cabin2RightSlide", "Cabin3Left","Cabin3LeftLbl", "Cabin3LeftLine", "Cabin3LeftSlide", "Cabin3Right", "Cabin3RightLbl", "Cabin3RightLine", "Cabin3RightSlide", 
 		"AvionicsLine1", "AvionicsLbl1", "AvionicsLine2", "AvionicsLbl2","Cargo1Line", "Cargo1Lbl", "Cargo1Door", "Cargo2Line", "Cargo2Lbl", "Cargo2Door", "ExitLSlide", "ExitLLine", "ExitLLbl", "ExitRSlide", "ExitRLine", "ExitRLbl", "Cabin4Left", 
-		"Cabin4LeftLbl", "Cabin4LeftLine", "Cabin4LeftSlide", "Cabin4Right", "Cabin4RightLbl", "Cabin4RightLine", "Cabin4RightSlide"];
+		"Cabin4LeftLbl", "Cabin4LeftLine", "Cabin4LeftSlide", "Cabin4Right", "Cabin4RightLbl", "Cabin4RightLine", "Cabin4RightSlide","DOOROXY-REGUL-LO-PR"];
 	},
 	update: func() {
 		# If you make AirBerlin or Allegiant livery add below 
@@ -479,6 +479,7 @@ var canvas_lowerECAM_door = {
 		me["Cabin4LeftSlide"].hide();
 		me["Cabin4RightSlide"].hide();
 		
+		me["DOOROXY-REGUL-LO-PR"].hide();
 		me["AvionicsLine1"].hide();
 		me["AvionicsLine2"].hide();
 		me["AvionicsLbl1"].hide();
