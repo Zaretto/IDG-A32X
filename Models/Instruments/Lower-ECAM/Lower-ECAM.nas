@@ -523,7 +523,7 @@ var canvas_lowerECAM_elec = {
 	getKeys: func() {
 		return ["TAT","SAT","GW","BAT1-label","Bat1Volt","Bat1Ampere","BAT2-label","Bat2Volt","Bat2Ampere","BAT1-charge",
 			"BAT1-discharge","ELEC-Line-BAT1-DCBAT","BAT2-charge","BAT2-discharge","ELEC-Line-BAT2-DCBAT",
-			"ELEC-Line-DC1-DCBAT","ELEC-Line-DC1-DCESS","ELEC-Line-DC2-DCBAT","ELEC-Line-DC2-DCESS",
+			"ELEC-Line-DC1-DCBAT","ELEC-Line-DC1-DCESS","ELEC-Line-DC2-DCBAT",
 			"ELEC-Line-DC1-DCESS_DCBAT","ELEC-Line-DC2-DCESS_DCBAT","ELEC-Line-TR1-DC1","ELEC-Line-TR2-DC2","Shed-label",
 			"ELEC-Line-ESSTR-DCESS","TR1-label","TR1Volt","TR1Ampere","TR2-label","TR2Volt","TR2Ampere","EMERGEN-Box-on",
 			"EmergenVolt","EmergenHz","ELEC-Line-Emergen-ESSTR","EMERGEN-Label-off","EMERGEN-out","ELEC-Line-ACESS-TRESS",
@@ -679,11 +679,31 @@ var canvas_lowerECAM_elec = {
 		}
 
 		# ESS TR
-		# TODO add amber title.
-		# TODO add correct V and A
+		# TODO add amber title on under A.
+		# TODO add correct A
+		if (getprop("/systems/electrical/bus/dc1") < 25) {
+			me["ESSTR-group"].show();
+			me["ESSTR-Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc-ess"))));
+
+			if (getprop("/systems/electrical/bus/dc-ess") < 25 or getprop("/systems/electrical/bus/dc-ess") > 31) {
+				me["ESSTR-Volt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ESSTR-Volt"].setColor(0.0509,0.7529,0.2941);
+			}
+		} else {
+			me["ESSTR-group"].hide();
+		}
 
 		# EMER GEN
-		# TODO add all
+		# TODO add values and amber on over/under load
+		# TODO changes the prop to the one which indicates the use of the emergen and not of the man depoly
+		if (getprop("/controls/electrical/switches/emer-gen") == 0) {
+			me["EMERGEN-Box-on"].hide();
+			me["EMERGEN-Label-off"].show();
+		} else {
+			me["EMERGEN-Box-on"].show();
+			me["EMERGEN-Label-off"].hide();
+		}
 
 		# GEN1
 		if (getprop("/controls/electrical/switches/gen1") == 0) {
@@ -903,14 +923,11 @@ var canvas_lowerECAM_elec = {
 			me["ELEC-ACESS-label"].setColor(0.7333,0.3803,0);
 		}
 
-		# TODO fix that... "Nasal runtime error: non-objects have no members
-		#  at /storage/IDG-A32X/Models/Instruments/Lower-ECAM/Lower-ECAM.nas" in the me[] line
-		# I have no clue, why it's that way.
-#		if (getprop("/systems/electrical/bus/ac-ess-shed") > 110) {
-#			me["ELEC-ACESS-SHED-label"].setColor(0.0509,0.7529,0.2941);
-#		} else {
-#			me["ELEC-ACESS-SHED-label"].setColor(0.7333,0.3803,0);
-#		}
+		if (getprop("/systems/electrical/bus/ac-ess") > 110) {
+			me["ACESS-SHED"].hide();
+		} else {
+			me["ACESS-SHED"].show();
+		}
 
 		if (getprop("/systems/electrical/bus/ac1") > 110) {
 			me["ELEC-AC1-label"].setColor(0.0509,0.7529,0.2941);
@@ -938,38 +955,43 @@ var canvas_lowerECAM_elec = {
 			me["EXT-out"].hide();
 		}
 
-		# TODO add GEN1-out lines
+		if (getprop("/systems/electrical/extra/gen1-volts") >= 110) {
+			me["ELEC-Line-GEN1-AC1"].show();
+		} else {
+			me["ELEC-Line-GEN1-AC1"].hide();
+		}
 
-		# TODO add GEN2-out lines
+		if (getprop("/systems/electrical/extra/gen2-volts") >= 110) {
+			me["ELEC-Line-GEN2-AC2"].show();
+		} else {
+			me["ELEC-Line-GEN2-AC2"].hide();
+		}
 
-		if (getprop("/systems/electrical/ac1-src") != "XX") {
+		if (getprop("/systems/electrical/bus/ac1") >= 110) {
 			me["AC1-in"].show();
 		} else {
 			me["AC1-in"].hide()
 		}
 
-		if (getprop("/systems/electrical/ac2-src") != "XX") {
+		if (getprop("/systems/electrical/bus/ac2") >= 110) {
 			me["AC2-in"].show();
 		} else {
 			me["AC2-in"].hide()
 		}
 
-		# TODO add case pwr comes from gen2
-		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac1-src") == "EXT") {
+		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
 			me["ELEC-Line-APU-AC1"].show();
 		} else {
 			me["ELEC-Line-APU-AC1"].hide();
 		}
 
-		# TODO add case where gens are xfeeding the othersides bus
-		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "APU") {
+		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
 			me["ELEC-Line-APU-EXT"].show();
 		} else {
 			me["ELEC-Line-APU-EXT"].hide();
 		}
 
-		# TODO add case pwr comes from gen1
-		if (getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac2-src") == "EXT") {
+		if (getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac2-src") == "EXT" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
 			me["ELEC-Line-EXT-AC2"].show();
 		} else {
 			me["ELEC-Line-EXT-AC2"].hide();
@@ -983,23 +1005,69 @@ var canvas_lowerECAM_elec = {
 			me["ELEC-Line-AC2-ACESS"].hide();
 		}
 
-		# TODO add all above the AC
+		# TODO encapsule this with a check if TR1 has failed and then hide the segment
+		if (getprop("/systems/electrical/bus/ac1") < 110) {
+			me["ELEC-Line-AC1-TR1"].setColorFill(0.7333,0.3803,0);
+		} else {
+			me["ELEC-Line-AC1-TR1"].setColorFill(0.0509,0.7529,0.2941);
+		}
+
+		# TODO encapsule this with a check if TR2 has failed and then hide the segment
+		if (getprop("/systems/electrical/bus/ac2") < 110) {
+			me["ELEC-Line-AC2-TR2"].setColorFill(0.7333,0.3803,0);
+		} else {
+			me["ELEC-Line-AC2-TR2"].setColorFill(0.0509,0.7529,0.2941);
+		}
+
+		# TODO add case, that TR1 fails
+		if (getprop("/systems/electrical/bus/ac1") < 110) {
+			me["ELEC-Line-TR1-DC1"].hide();
+			me["ELEC-Line-DC1-DCESS"].hide();
+		} else {
+			me["ELEC-Line-TR1-DC1"].show();
+			me["ELEC-Line-DC1-DCESS"].show();
+		}
+
+		# TODO add case, that TR2 fails
+		if (getprop("/systems/electrical/bus/ac2") < 110) {
+			me["ELEC-Line-TR2-DC2"].hide();
+		} else {
+			me["ELEC-Line-TR2-DC2"].show();
+		}
+
+		if (getprop("/systems/electrical/bus/dc1") < 25) {
+			me["ELEC-Line-DC1-DCESS_DCBAT"].hide();
+			me["ELEC-Line-DC1-DCBAT"].hide();
+		} else {
+			me["ELEC-Line-DC1-DCESS_DCBAT"].show();
+			me["ELEC-Line-DC1-DCBAT"].show();
+		}
+
+		# TODO add case, that TR1 fails to the right side of the `or` with an `and`
+		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc1") >= 25 and getprop("/systems/electrical/bus/ac1") >= 110) {
+			me["ELEC-Line-DC2-DCESS_DCBAT"].hide();
+			me["ELEC-Line-DC2-DCBAT"].hide();
+		} else {
+			me["ELEC-Line-DC2-DCESS_DCBAT"].show();
+			me["ELEC-Line-DC2-DCBAT"].show();
+		}
+
+		if (getprop("/controls/electrical/switches/emer-gen") == 1 and (getprop("/systems/electrical/bus/ac1") < 110 and getprop("/controls/electrical/switches/ac-ess-feed") == 0 or getprop("/systems/electrical/bus/ac2") < 110 and getprop("/controls/electrical/switches/ac-ess-feed") == 1)) {
+			me["EMERGEN-out"].show();
+		} else {
+			me["EMERGEN-out"].hide();
+		}
+
+		# TODO add connections from/to ESS TR
 
 		# hide not yet implemented items
-		me["ACESS-SHED"].hide();
 		me["IDG1-LOPR"].hide();
 		me["IDG2-LOPR"].hide();
 		me["IDG1-DISC"].hide();
 		me["IDG2-DISC"].hide();
-		me["EMERGEN-Box-on"].hide();
-		me["ESSTR-group"].hide();
-		me["ELEC-Line-DC2-DCBAT"].hide();
-		me["ELEC-Line-DC2-DCESS_DCBAT"].hide();
-		me["ELEC-Line-DC2-DCESS"].hide();
+		me["Shed-label"].hide();
 		me["ELEC-Line-ACESS-TRESS"].hide();
 		me["ELEC-Line-Emergen-ESSTR"].hide();
-		me["EMERGEN-out"].hide();
-		me["Shed-label"].hide();
 		me["IDG2-RISE-label"].hide();
 		me["IDG2-RISE-Value"].hide();
 		me["IDG1-RISE-label"].hide();
