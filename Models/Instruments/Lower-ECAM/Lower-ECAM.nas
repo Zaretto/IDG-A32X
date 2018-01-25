@@ -8,6 +8,7 @@
 var lowerECAM_apu = nil;
 var lowerECAM_bleed = nil;
 var lowerECAM_door = nil;
+var lowerECAM_elec = nil;
 var lowerECAM_fuel = nil;
 var lowerECAM_eng = nil;
 var lowerECAM_fctl = nil;
@@ -32,6 +33,10 @@ var askidsw = 0;
 var brakemode = 0;
 var accum = 0;
 var elapsedtime = 0;
+var tr1_v = 0;
+var tr1_a = 0;
+var tr2_v = 0;
+var tr2_a = 0;
 setprop("/systems/electrical/extra/apu-load", 0);
 setprop("/systems/electrical/extra/apu-volts", 0);
 setprop("/systems/electrical/extra/apu-hz", 0);
@@ -114,6 +119,7 @@ var canvas_lowerECAM_base = {
 				lowerECAM_fuel.page.hide();
 				lowerECAM_wheel.page.hide();
 				lowerECAM_door.page.hide();
+				lowerECAM_elec.page.hide();
 				lowerECAM_test.page.show();
 				lowerECAM_test.update();
 			} else {
@@ -123,6 +129,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.show();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -133,6 +140,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.show();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -143,16 +151,28 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.show();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
 					lowerECAM_hyd.page.hide();
 					lowerECAM_wheel.page.hide();
 					lowerECAM_door.update();
+				} else if (page == "elec") {
+					lowerECAM_apu.page.hide();
+					lowerECAM_bleed.page.hide();
+					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.show();
+					lowerECAM_eng.page.hide();
+					lowerECAM_fctl.page.hide();
+					lowerECAM_hyd.page.hide();
+					lowerECAM_wheel.page.hide();
+					lowerECAM_elec.update();
 				} else if (page == "eng") {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.show();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -163,6 +183,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.show();
 					lowerECAM_fuel.page.hide();
@@ -183,6 +204,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -193,6 +215,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -203,6 +226,7 @@ var canvas_lowerECAM_base = {
 					lowerECAM_apu.page.hide();
 					lowerECAM_bleed.page.hide();
 					lowerECAM_door.page.hide();
+					lowerECAM_elec.page.hide();
 					lowerECAM_eng.page.hide();
 					lowerECAM_fctl.page.hide();
 					lowerECAM_fuel.page.hide();
@@ -215,6 +239,7 @@ var canvas_lowerECAM_base = {
 			lowerECAM_apu.page.hide();
 			lowerECAM_bleed.page.hide();
 			lowerECAM_door.page.hide();
+			lowerECAM_elec.page.hide();
 			lowerECAM_eng.page.hide();
 			lowerECAM_fctl.page.hide();
 			lowerECAM_fuel.page.hide();
@@ -506,6 +531,570 @@ var canvas_lowerECAM_door = {
 		me["Cabin3Right"].hide();
 		me["Cabin3RightLine"].hide();
 		me["Cabin3RightLbl"].hide();
+		me.updateBottomStatus();
+	},
+};
+
+var canvas_lowerECAM_elec = {
+	new: func(canvas_group, file) {
+		var m = {parents: [canvas_lowerECAM_elec, canvas_lowerECAM_base]};
+		m.init(canvas_group, file);
+
+		return m;
+	},
+	getKeys: func() {
+		return ["TAT","SAT","GW","BAT1-label","Bat1Volt","Bat1Ampere","BAT2-label","Bat2Volt","Bat2Ampere","BAT1-charge",
+			"BAT1-discharge","ELEC-Line-BAT1-DCBAT","BAT2-charge","BAT2-discharge","ELEC-Line-BAT2-DCBAT",
+			"ELEC-Line-DC1-DCBAT","ELEC-Line-DC1-DCESS","ELEC-Line-DC2-DCBAT",
+			"ELEC-Line-DC1-DCESS_DCBAT","ELEC-Line-DC2-DCESS_DCBAT","ELEC-Line-TR1-DC1","ELEC-Line-TR2-DC2","Shed-label",
+			"ELEC-Line-ESSTR-DCESS","TR1-label","TR1Volt","TR1Ampere","TR2-label","TR2Volt","TR2Ampere","EMERGEN-Box-on",
+			"EmergenVolt","EmergenHz","ELEC-Line-Emergen-ESSTR","EMERGEN-Label-off","EMERGEN-out","ELEC-Line-ACESS-TRESS",
+			"ELEC-Line-AC1-TR1","ELEC-Line-AC2-TR2","ELEC-Line-AC1-ACESS","ELEC-Line-AC2-ACESS","ACESS-SHED","ACESS",
+			"AC1-in","AC2-in","ELEC-Line-GEN1-AC1","ELEC-Line-GEN2-AC2","ELEC-Line-APU-AC1","ELEC-Line-APU-EXT",
+			"ELEC-Line-EXT-AC2","APU-out","EXT-out","EXTPWR-group","ExtVolt","ExtHz","APU-content","APU-border",
+			"APUGentext","APUGenLoad","APUGenVolt","APUGenHz","APUGEN-off","GEN1-label","Gen1Load","Gen1Volt","Gen1Hz",
+			"GEN2-label","Gen2Load","GEN2-off","Gen2Volt","Gen2Hz","ELEC-IDG-1-label","ELEC-IDG-1-Temp","IDG1-LOPR",
+			"IDG1-DISC","IDG1-RISE-Value","IDG1-RISE-label","GalleyShed","ELEC-IDG-2-Temp","ELEC-IDG-2-label",
+			"IDG2-RISE-label","IDG2-RISE-Value","IDG2-LOPR","IDG2-DISC","ESSTR-group","ESSTR-Volt","ESSTR-Ampere",
+			"BAT1-content","BAT2-content","BAT1-OFF","BAT2-OFF","GEN1-content","GEN2-content","GEN-1-num-label",
+			"GEN-2-num-label","GEN1-off","GEN2-off","GEN1-num-label","GEN2-num-label","EXTPWR-label",
+			"ELEC-ACESS-SHED-label","ELEC-DCBAT-label","ELEC-DCESS-label","ELEC-DC2-label","ELEC-DC1-label",
+			"ELEC-AC1-label","ELEC-AC2-label","ELEC-ACESS-label"];
+	},
+	update: func() {
+
+		# BAT1
+		if (getprop("/controls/electrical/switches/battery1") == 0) {
+			me["BAT1-OFF"].show();
+			me["BAT1-content"].hide();
+			me["BAT1-discharge"].hide();
+			me["BAT1-charge"].hide();
+			me["ELEC-Line-BAT1-DCBAT"].hide();
+		} else {
+			me["BAT1-OFF"].hide();
+			me["BAT1-content"].show();
+			me["Bat1Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/battery1-amps"))));
+			me["Bat1Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/battery1-volts"))));
+
+			if (getprop("/systems/electrical/battery1-volts") >= 25) {
+				me["Bat1Volt"].setColor(0.0509,0.7529,0.2941);
+			} else {
+				me["Bat1Volt"].setColor(0.7333,0.3803,0);
+			}
+
+			if (getprop("/systems/electrical/battery1-amps") > 5) {
+				me["Bat1Ampere"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Bat1Ampere"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			# TODO add correct charge/dischare behaviour
+			# this is only temporary
+			me["ELEC-Line-BAT1-DCBAT"].show();
+			me["BAT1-discharge"].hide();
+			me["BAT1-charge"].hide();
+		}
+
+		if (getprop("/systems/electrical/batt1-fault") == 1 or getprop("/systems/electrical/battery1-volts") < 25 or getprop("/systems/electrical/battery1-amps") > 5) {
+			me["BAT1-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["BAT1-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		# BAT2
+		if (getprop("/controls/electrical/switches/battery2") == 0) {
+			me["BAT2-OFF"].show();
+			me["BAT2-content"].hide();
+			me["BAT2-discharge"].hide();
+			me["BAT2-charge"].hide();
+			me["ELEC-Line-BAT2-DCBAT"].hide();
+		} else {
+			me["BAT2-OFF"].hide();
+			me["BAT2-content"].show();
+			me["Bat2Ampere"].setText(sprintf("%s", math.round(getprop("/systems/electrical/battery2-amps"))));
+			me["Bat2Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/battery2-volts"))));
+
+			if (getprop("/systems/electrical/battery2-volts") >= 25) {
+				me["Bat2Volt"].setColor(0.0509,0.7529,0.2941);
+			} else {
+				me["Bat2Volt"].setColor(0.7333,0.3803,0);
+			}
+
+			if (getprop("/systems/electrical/battery2-amps") > 5) {
+				me["Bat2Ampere"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Bat2Ampere"].setColor(0.0509,0.7529,0.2941);
+			}
+			# TODO add correct charge/dischare behaviour
+			# this is only temporary
+			me["ELEC-Line-BAT2-DCBAT"].show();
+			me["BAT2-discharge"].hide();
+			me["BAT2-charge"].hide();
+		}
+
+		if (getprop("/systems/electrical/batt2-fault") == 1 or getprop("/systems/electrical/battery2-volts") < 25 or getprop("/systems/electrical/battery2-amps") > 5) {
+			me["BAT2-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["BAT2-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		# TR1
+		# is only powered when ac1 has power
+		if (getprop("/systems/electrical/bus/ac1") >= 110) {
+			tr1_v = getprop("/systems/electrical/bus/dc1");
+			tr1_a = getprop("/systems/electrical/bus/dc1-amps");
+		} else {
+			tr1_v = 0;
+			tr1_a = 0;
+		}
+
+		me["TR1Volt"].setText(sprintf("%s", math.round(tr1_v)));
+		me["TR1Ampere"].setText(sprintf("%s", math.round(tr1_a)));
+
+		if (tr1_v < 25 or tr1_v > 31 or tr1_a <= 5) {
+			me["TR1-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		if (tr1_v < 25 or tr1_v > 31) {
+			me["TR1Volt"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1Volt"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		if (tr1_a <= 5) {
+			me["TR1Ampere"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR1Ampere"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		# TR2
+		# is only powered when ac2 has power
+		if (getprop("/systems/electrical/bus/ac2") >= 110) {
+			tr2_v = getprop("/systems/electrical/bus/dc2");
+			tr2_a = getprop("/systems/electrical/bus/dc2-amps");
+		} else {
+			tr2_v = 0;
+			tr2_a = 0;
+		}
+
+		me["TR2Volt"].setText(sprintf("%s", math.round(tr2_v)));
+		me["TR2Ampere"].setText(sprintf("%s", math.round(tr2_a)));
+
+		if (tr2_v < 25 or tr2_v > 31 or tr2_a <= 5) {
+			me["TR2-label"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2-label"].setColor(0.8078,0.8039,0.8078);
+		}
+
+		if (tr2_v < 25 or tr2_v > 31) {
+			me["TR2Volt"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2Volt"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		if (tr2_a <= 5) {
+			me["TR2Ampere"].setColor(0.7333,0.3803,0);
+		} else {
+			me["TR2Ampere"].setColor(0.0509,0.7529,0.2941);
+		}
+
+		# ESS TR
+		# TODO add amber title on under A.
+		# TODO add correct A
+		if (getprop("/systems/electrical/bus/dc1") < 25) {
+			me["ESSTR-group"].show();
+			me["ESSTR-Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/dc-ess"))));
+
+			if (getprop("/systems/electrical/bus/dc-ess") < 25 or getprop("/systems/electrical/bus/dc-ess") > 31) {
+				me["ESSTR-Volt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ESSTR-Volt"].setColor(0.0509,0.7529,0.2941);
+			}
+		} else {
+			me["ESSTR-group"].hide();
+		}
+
+		# EMER GEN
+		# TODO add values and amber on over/under load
+		# TODO changes the prop to the one which indicates the use of the emergen and not of the man depoly
+		if (getprop("/controls/electrical/switches/emer-gen") == 0) {
+			me["EMERGEN-Box-on"].hide();
+			me["EMERGEN-Label-off"].show();
+		} else {
+			me["EMERGEN-Box-on"].show();
+			me["EMERGEN-Label-off"].hide();
+		}
+
+		# GEN1
+		if (getprop("/controls/electrical/switches/gen1") == 0) {
+			me["GEN1-content"].hide();
+			me["GEN1-off"].show();
+			me["GEN1-label"].setColor(0.7333,0.3803,0);
+
+			if (getprop("/engines/engine[0]/running") == 0) {
+				me["GEN1-num-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN1-num-label"].setColor(0.8078,0.8039,0.8078);
+			}
+		} else {
+			me["GEN1-content"].show();
+			me["GEN1-off"].hide();
+			# TODO add load
+			me["Gen1Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/gen1-volts"))));
+
+			if (getprop("/systems/electrical/bus/gen1-hz") == 0) {
+				me["Gen1Hz"].setText(sprintf("XX"));
+			} else {
+				me["Gen1Hz"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/gen1-hz"))));
+			}
+
+			if (getprop("/engines/engine[0]/running") == 0) {
+				me["GEN1-num-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN1-num-label"].setColor(0.8078,0.8039,0.8078);
+			}
+
+			# TODO add load check
+			if (getprop("/systems/electrical/extra/gen1-volts") > 120 or getprop("/systems/electrical/extra/gen1-volts") < 110 or getprop("/systems/electrical/bus/gen1-hz") > 410 or getprop("/systems/electrical/bus/gen1-hz") < 390) {
+				me["GEN1-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN1-label"].setColor(0.8078,0.8039,0.8078);
+			}
+
+			# TODO add load and make it amber if above 100%
+
+			if (getprop("/systems/electrical/extra/gen1-volts") > 120 or getprop("/systems/electrical/extra/gen1-volts") < 110) {
+				me["Gen1Volt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Gen1Volt"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			if (getprop("/systems/electrical/bus/gen1-hz") > 410 or getprop("/systems/electrical/bus/gen1-hz") < 390) {
+				me["Gen1Hz"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Gen1Hz"].setColor(0.0509,0.7529,0.2941);
+			}
+		}
+
+		# GEN2
+		if (getprop("/controls/electrical/switches/gen2") == 0) {
+			me["GEN2-content"].hide();
+			me["GEN2-off"].show();
+			me["GEN2-label"].setColor(0.7333,0.3803,0);
+
+			if (getprop("/engines/engine[1]/running") == 0) {
+				me["GEN2-num-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN2-num-label"].setColor(0.8078,0.8039,0.8078);
+			}
+		} else {
+			me["GEN2-content"].show();
+			me["GEN2-off"].hide();
+			# TODO add load
+			me["Gen2Volt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/gen2-volts"))));
+			if (getprop("/systems/electrical/bus/gen2-hz") == 0) {
+				me["Gen2Hz"].setText(sprintf("XX"));
+			} else {
+				me["Gen2Hz"].setText(sprintf("%s", math.round(getprop("/systems/electrical/bus/gen2-hz"))));
+			}
+
+			if (getprop("/engines/engine[1]/running") == 0) {
+				me["GEN2-num-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN2-num-label"].setColor(0.8078,0.8039,0.8078);
+			}
+
+			# TODO add load check
+			if (getprop("/systems/electrical/extra/gen2-volts") > 120 or getprop("/systems/electrical/extra/gen2-volts") < 110 or getprop("/systems/electrical/bus/gen2-hz") > 410 or getprop("/systems/electrical/bus/gen2-hz") < 390) {
+				me["GEN2-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["GEN2-label"].setColor(0.8078,0.8039,0.8078);
+			}
+
+			# TODO add load and make it amber if above 100%
+
+			if (getprop("/systems/electrical/extra/gen2-volts") > 120 or getprop("/systems/electrical/extra/gen2-volts") < 110) {
+				me["Gen2Volt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Gen2Volt"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			if (getprop("/systems/electrical/bus/gen2-hz") > 410 or getprop("/systems/electrical/bus/gen2-hz") < 390) {
+				me["Gen2Hz"].setColor(0.7333,0.3803,0);
+			} else {
+				me["Gen2Hz"].setColor(0.0509,0.7529,0.2941);
+			}
+		}
+
+		# APU
+		if (getprop("/controls/APU/master") == 0) {
+			me["APU-content"].hide();
+			me["APUGEN-off"].hide();
+			me["APU-border"].hide();
+			me["APUGentext"].setColor(0.8078,0.8039,0.8078);
+		} else {
+			me["APU-border"].show();
+			if (getprop("/controls/electrical/switches/gen-apu") == 0) {
+				me["APU-content"].hide();
+				me["APUGEN-off"].show();
+				me["APUGentext"].setColor(0.7333,0.3803,0);
+			} else {
+				me["APU-content"].show();
+				me["APUGEN-off"].hide();
+				me["APUGenLoad"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/apu-load"))));
+				me["APUGenVolt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/apu-volts"))));
+
+				if (getprop("/systems/electrical/extra/apu-hz") == 0) {
+					me["APUGenHz"].setText(sprintf("XX"));
+				} else {
+					me["APUGenHz"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/apu-hz"))));
+				}
+
+				if (getprop("/systems/electrical/extra/apu-volts") > 120 or getprop("/systems/electrical/extra/apu-volts") < 110 or getprop("/systems/electrical/extra/apu-hz") > 410 or getprop("/systems/electrical/extra/apu-hz") < 390 or getprop("/systems/electrical/extra/apu-load") > 100) {
+					me["APUGentext"].setColor(0.7333,0.3803,0);
+				} else {
+					me["APUGentext"].setColor(0.8078,0.8039,0.8078);
+				}
+
+				if(getprop("/systems/electrical/extra/apu-load") > 100) {
+					me["APUGenLoad"].setColor(0.7333,0.3803,0);
+				} else {
+					me["APUGenLoad"].setColor(0.0509,0.7529,0.2941);
+				}
+
+				if (getprop("/systems/electrical/extra/apu-volts") > 120 or getprop("/systems/electrical/extra/apu-volts") < 110) {
+					me["APUGenVolt"].setColor(0.7333,0.3803,0);
+				} else {
+					me["APUGenVolt"].setColor(0.0509,0.7529,0.2941);
+				}
+
+				if (getprop("/systems/electrical/extra/apu-hz") > 410 or getprop("/systems/electrical/extra/apu-hz") < 390) {
+					me["APUGenHz"].setColor(0.7333,0.3803,0);
+				} else {
+					me["APUGenHz"].setColor(0.0509,0.7529,0.2941);
+				}
+			}
+		}
+
+		# EXT PWR
+		# TODO this should go via ext pwr avail and not via ext pwr active
+		if (getprop("/systems/electrical/get-ext") == 0) {
+			me["EXTPWR-group"].hide();
+		} else {
+			me["EXTPWR-group"].show();
+			me["ExtVolt"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/ext-volts"))));
+			me["ExtHz"].setText(sprintf("%s", math.round(getprop("/systems/electrical/extra/ext-hz"))));
+
+			if (getprop("/systems/electrical/extra/ext-hz") > 410 or getprop("/systems/electrical/extra/ext-hz") < 390 or getprop("/systems/electrical/extra/ext-volts") > 120 or getprop("/systems/electrical/extra/ext-volts") < 110) {
+				me["EXTPWR-label"].setColor(0.7333,0.3803,0);
+			} else {
+				me["EXTPWR-label"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			if (getprop("/systems/electrical/extra/ext-hz") > 410 or getprop("/systems/electrical/extra/ext-hz") < 390) {
+				me["ExtHz"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ExtHz"].setColor(0.0509,0.7529,0.2941);
+			}
+
+			if (getprop("/systems/electrical/extra/ext-volts") > 120 or getprop("/systems/electrical/extra/ext-volts") < 110) {
+				me["ExtVolt"].setColor(0.7333,0.3803,0);
+			} else {
+				me["ExtVolt"].setColor(0.0509,0.7529,0.2941);
+			}
+		}
+
+		# TODO add IDG warnings and rise part
+
+		if (getprop("/systems/electrical/extra/galleyshed") == 1) {
+			me["GalleyShed"].show();
+		} else {
+			me["GalleyShed"].hide();
+		}
+
+		# Bus indicators
+		if (getprop("/systems/electrical/bus/dcbat") > 25) {
+			me["ELEC-DCBAT-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DCBAT-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc1") > 25) {
+			me["ELEC-DC1-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DC1-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc2") > 25) {
+			me["ELEC-DC2-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DC2-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/dc-ess") > 25) {
+			me["ELEC-DCESS-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-DCESS-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/ac-ess") > 110) {
+			me["ELEC-ACESS-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-ACESS-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/ac-ess") > 110) {
+			me["ACESS-SHED"].hide();
+		} else {
+			me["ACESS-SHED"].show();
+		}
+
+		if (getprop("/systems/electrical/bus/ac1") > 110) {
+			me["ELEC-AC1-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-AC1-label"].setColor(0.7333,0.3803,0);
+		}
+
+		if (getprop("/systems/electrical/bus/ac2") > 110) {
+			me["ELEC-AC2-label"].setColor(0.0509,0.7529,0.2941);
+		} else {
+			me["ELEC-AC2-label"].setColor(0.7333,0.3803,0);
+		}
+
+
+		# Managment of the connecting lines between the components
+		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac2-src") == "APU") {
+			me["APU-out"].show();
+		} else {
+			me["APU-out"].hide();
+		}
+
+		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "EXT") {
+			me["EXT-out"].show();
+		} else {
+			me["EXT-out"].hide();
+		}
+
+		if (getprop("/systems/electrical/extra/gen1-volts") >= 110) {
+			me["ELEC-Line-GEN1-AC1"].show();
+		} else {
+			me["ELEC-Line-GEN1-AC1"].hide();
+		}
+
+		if (getprop("/systems/electrical/extra/gen2-volts") >= 110) {
+			me["ELEC-Line-GEN2-AC2"].show();
+		} else {
+			me["ELEC-Line-GEN2-AC2"].hide();
+		}
+
+		if (getprop("/systems/electrical/bus/ac1") >= 110) {
+			me["AC1-in"].show();
+		} else {
+			me["AC1-in"].hide()
+		}
+
+		if (getprop("/systems/electrical/bus/ac2") >= 110) {
+			me["AC2-in"].show();
+		} else {
+			me["AC2-in"].hide()
+		}
+
+		if (getprop("/systems/electrical/ac1-src") == "APU" or getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
+			me["ELEC-Line-APU-AC1"].show();
+		} else {
+			me["ELEC-Line-APU-AC1"].hide();
+		}
+
+		if (getprop("/systems/electrical/ac1-src") == "EXT" or getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
+			me["ELEC-Line-APU-EXT"].show();
+		} else {
+			me["ELEC-Line-APU-EXT"].hide();
+		}
+
+		if (getprop("/systems/electrical/ac2-src") == "APU" or getprop("/systems/electrical/ac2-src") == "EXT" or getprop("/systems/electrical/ac1-src") == "XTIE" or getprop("/systems/electrical/ac2-src") == "XTIE") {
+			me["ELEC-Line-EXT-AC2"].show();
+		} else {
+			me["ELEC-Line-EXT-AC2"].hide();
+		}
+
+		if (getprop("/controls/electrical/switches/ac-ess-feed") == 1) {
+			me["ELEC-Line-AC1-ACESS"].hide();
+			me["ELEC-Line-AC2-ACESS"].show();
+		} else {
+			me["ELEC-Line-AC1-ACESS"].show();
+			me["ELEC-Line-AC2-ACESS"].hide();
+		}
+
+		# TODO encapsule this with a check if TR1 has failed and then hide the segment
+		if (getprop("/systems/electrical/bus/ac1") < 110) {
+			me["ELEC-Line-AC1-TR1"].setColorFill(0.7333,0.3803,0);
+		} else {
+			me["ELEC-Line-AC1-TR1"].setColorFill(0.0509,0.7529,0.2941);
+		}
+
+		# TODO encapsule this with a check if TR2 has failed and then hide the segment
+		if (getprop("/systems/electrical/bus/ac2") < 110) {
+			me["ELEC-Line-AC2-TR2"].setColorFill(0.7333,0.3803,0);
+		} else {
+			me["ELEC-Line-AC2-TR2"].setColorFill(0.0509,0.7529,0.2941);
+		}
+
+		# TODO add case, that TR1 fails
+		if (getprop("/systems/electrical/bus/ac1") < 110) {
+			me["ELEC-Line-TR1-DC1"].hide();
+			me["ELEC-Line-DC1-DCESS"].hide();
+		} else {
+			me["ELEC-Line-TR1-DC1"].show();
+			me["ELEC-Line-DC1-DCESS"].show();
+		}
+
+		# TODO add case, that TR2 fails
+		if (getprop("/systems/electrical/bus/ac2") < 110) {
+			me["ELEC-Line-TR2-DC2"].hide();
+		} else {
+			me["ELEC-Line-TR2-DC2"].show();
+		}
+
+		if (getprop("/systems/electrical/bus/dc1") < 25) {
+			me["ELEC-Line-DC1-DCESS_DCBAT"].hide();
+			me["ELEC-Line-DC1-DCBAT"].hide();
+		} else {
+			me["ELEC-Line-DC1-DCESS_DCBAT"].show();
+			me["ELEC-Line-DC1-DCBAT"].show();
+		}
+
+		# TODO add case, that TR1 fails to the right side of the `or` with an `and`
+		if (getprop("/systems/electrical/bus/dc2") < 25 or getprop("/systems/electrical/bus/dc1") >= 25 and getprop("/systems/electrical/bus/ac1") >= 110) {
+			me["ELEC-Line-DC2-DCESS_DCBAT"].hide();
+			me["ELEC-Line-DC2-DCBAT"].hide();
+		} else {
+			me["ELEC-Line-DC2-DCESS_DCBAT"].show();
+			me["ELEC-Line-DC2-DCBAT"].show();
+		}
+
+		if (getprop("/controls/electrical/switches/emer-gen") == 1 and (getprop("/systems/electrical/bus/ac1") < 110 and getprop("/controls/electrical/switches/ac-ess-feed") == 0 or getprop("/systems/electrical/bus/ac2") < 110 and getprop("/controls/electrical/switches/ac-ess-feed") == 1)) {
+			me["EMERGEN-out"].show();
+		} else {
+			me["EMERGEN-out"].hide();
+		}
+
+		# TODO add connections from/to ESS TR
+
+		# hide not yet implemented items
+		me["IDG1-LOPR"].hide();
+		me["IDG2-LOPR"].hide();
+		me["IDG1-DISC"].hide();
+		me["IDG2-DISC"].hide();
+		me["Shed-label"].hide();
+		me["ELEC-Line-ACESS-TRESS"].hide();
+		me["ELEC-Line-Emergen-ESSTR"].hide();
+		me["IDG2-RISE-label"].hide();
+		me["IDG2-RISE-Value"].hide();
+		me["IDG1-RISE-label"].hide();
+		me["IDG1-RISE-Value"].hide();
+
 		me.updateBottomStatus();
 	},
 };
@@ -1789,6 +2378,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	var groupApu = lowerECAM_display.createGroup();
 	var groupBleed = lowerECAM_display.createGroup();
 	var groupDoor = lowerECAM_display.createGroup();
+	var groupElec = lowerECAM_display.createGroup();
 	var groupEng = lowerECAM_display.createGroup();
 	var groupFctl = lowerECAM_display.createGroup();
 	var groupFuel = lowerECAM_display.createGroup();
@@ -1799,6 +2389,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	lowerECAM_apu = canvas_lowerECAM_apu.new(groupApu, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/apu.svg");
 	lowerECAM_bleed = canvas_lowerECAM_bleed.new(groupBleed, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/bleed.svg");
 	lowerECAM_door = canvas_lowerECAM_door.new(groupDoor, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/door.svg");
+	lowerECAM_elec = canvas_lowerECAM_elec.new(groupElec, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/elec.svg");
 	lowerECAM_eng = canvas_lowerECAM_eng.new(groupEng, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/eng-eis2.svg");
 	lowerECAM_fctl = canvas_lowerECAM_fctl.new(groupFctl, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fctl.svg");
 	lowerECAM_fuel = canvas_lowerECAM_fuel.new(groupFuel, "Aircraft/IDG-A32X/Models/Instruments/Lower-ECAM/res/fuel.svg");
